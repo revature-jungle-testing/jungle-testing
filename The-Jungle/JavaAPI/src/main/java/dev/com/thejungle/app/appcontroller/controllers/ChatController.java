@@ -1,7 +1,6 @@
 package dev.com.thejungle.app.appcontroller.controllers;
 
 import com.google.gson.Gson;
-import dev.com.thejungle.dao.implementations.ChatDAO;
 import dev.com.thejungle.entity.ChatMessage;
 import dev.com.thejungle.entity.User;
 import dev.com.thejungle.service.implementations.ChatService;

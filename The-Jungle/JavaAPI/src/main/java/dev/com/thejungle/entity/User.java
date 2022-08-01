@@ -2,17 +2,35 @@ package dev.com.thejungle.entity;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name = "user_table")
 public class User {
 
-    // PRIVATE VARIABLES
-    private int userId;
+
+    @Id
+    @GeneratedValue
+    @Column(name = "user_id")
+     private int userId;
+     @Column(name = "first_name")
     private String firstName;
-    private String lastName;
+    @Column(name = "last_name")
+     private String lastName;
+     @Column(name = "email")
     private String email;
+    @Column(name = "username")
     private String username;
+    @Column(name = "passcode")
     private String passcode;
+    @Column(name = "user_about")
     private String userAbout;
+    @Column(name = "user_birth_date")
     private long userBirthdate;
+    @Column(name = "image_format")
     private String imageFormat;
 
     // CONSTRUCTORS
