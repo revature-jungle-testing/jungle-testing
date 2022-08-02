@@ -22,6 +22,8 @@ public class UserTest {
     public static void setup(){
         userDao = new UserDAO();
 
+
+
         
     }
 
@@ -57,7 +59,7 @@ public class UserTest {
 
     @Test
     public void getUserById(){
-        User result = userDao.getUserById(39);
+        User result = userDao.getUserById(1337);
         Assert.assertNotNull(result);
     }
 
@@ -75,13 +77,13 @@ public class UserTest {
 
     @Test(expected = NullPointerException.class)
     public void getGroupsNames(){
-        HashMap<Integer, String> result = userDao.getGroupsNames(39);
+        HashMap<Integer, String> result = userDao.getGroupsNames(1337);
         Assert.assertNotNull(result);
     }
     
     @Test(expected = NullPointerException.class)
     public void getGroups(){
-        ArrayList<Integer> result = userDao.getGroups(39);
+        ArrayList<Integer> result = userDao.getGroups(1337);
         Assert.assertNotNull(result);
     }
     
