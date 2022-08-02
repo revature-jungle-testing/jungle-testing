@@ -1,11 +1,15 @@
 package dev.com.thejungle.dao.implementations;
 
+import dev.com.thejungle.dao.util.HibernateUtil;
 import dev.com.thejungle.dao.interfaces.ChatDAOInt;
 import dev.com.thejungle.entity.ChatMessage;
-import dev.com.thejungle.utility.ConnectionDB;
+// import dev.com.thejungle.utility.ConnectionDB;
 
-import java.sql.*;
+// import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Query;
 
 public class ChatDAO implements ChatDAOInt {
 
@@ -16,42 +20,11 @@ public class ChatDAO implements ChatDAOInt {
      */
     @Override
     public ChatMessage createMessage(ChatMessage chatMessage) {
-        try (Connection connection = ConnectionDB.createConnection()) {
-            if(chatMessage.getGroupId() == 0) {
-                String sql = "insert into chat_log_table values(default, default, ?, null, ?) returning chat_id, chat_date";
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setInt(1, chatMessage.getUserId());
-                preparedStatement.setString(2, chatMessage.getChatContent());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                resultSet.next();
-                return new ChatMessage(
-                        resultSet.getInt("chat_id"),
-                        resultSet.getString("chat_date"),
-                        chatMessage.getUserId(),
-                        chatMessage.getUserName(),
-                        chatMessage.getGroupId(),
-                        chatMessage.getChatContent()
-                );
-            } else {
-            String sql = "insert into chat_log_table values(default, default, ?, ?, ?) returning chat_id, chat_date";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, chatMessage.getUserId());
-            preparedStatement.setInt(2, chatMessage.getGroupId());
-            preparedStatement.setString(3, chatMessage.getChatContent());
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            return new ChatMessage(
-                    resultSet.getInt("chat_id"),
-                    resultSet.getString("chat_date"),
-                    chatMessage.getUserId(),
-                    chatMessage.getUserName(),
-                    chatMessage.getGroupId(),
-                    chatMessage.getChatContent()
-            );}
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+        HibernateUtil.beginTransaction();
+        HibernateUtil.getSession().save(chatMessage);
+        HibernateUtil.endTransaction();
+        return chatMessage;
+
     }
 
     /**
@@ -61,31 +34,16 @@ public class ChatDAO implements ChatDAOInt {
      * Will return empty ArrayList if no messages
      */
     @Override
-    public ArrayList<ChatMessage> getMessageHistory(int groupId) {
-        try (Connection connection = ConnectionDB.createConnection()) {
-                String sql = "select chat_id, chat_date, clt.user_id, ut.username, group_id, chat_content from chat_log_table clt " +
-            "inner join user_table ut on ut.user_id = clt.user_id " +
-            "where clt.chat_date >= now() - interval '5 minutes' and group_id = ? " +
-                        "order by chat_id asc";
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, groupId);
-                ResultSet resultSet = preparedStatement.executeQuery();
-            ArrayList<ChatMessage> chatMessages = new ArrayList<>();
-            while (resultSet.next()) {
-                chatMessages.add(new ChatMessage(
-                        resultSet.getInt("chat_id"),
-                        resultSet.getString("chat_date"),
-                        resultSet.getInt("user_id"),
-                        resultSet.getString("username"),
-                        resultSet.getInt("group_id"),
-                        resultSet.getString("chat_content")
-                ));
-            }
-            return chatMessages;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public List<ChatMessage> getMessageGroupHistory(int groupId) { // get group message history?
+        HibernateUtil.beginTransaction();
+        // HibernateUtil.getSession().update(groupId);
+        List<ChatMessage> chatHistoryGroup = HibernateUtil.getSession().createQuery(
+            "select chatId, chatDate, ChatMessage.userId, User.userName, groupId, chatContent " +
+            "from ChatMessage inner join User on User.userId = ChatMessage.userId " + 
+            "where chatDate > now() and groupId as :groupid order by chatId asc", 
+            ChatMessage.class).setParameter("groupid", groupId).getResultList();
+        HibernateUtil.endTransaction();
+        return chatHistoryGroup;
     }
 
     /**
@@ -94,29 +52,17 @@ public class ChatDAO implements ChatDAOInt {
      * Will return empty ArrayList if no messages
      */
     @Override
-    public ArrayList<ChatMessage> getMessageHistory() {
-        try (Connection connection = ConnectionDB.createConnection()) {
-            String sql = "select chat_id, chat_date, clt.user_id, ut.username, group_id, chat_content from chat_log_table clt " +
-                    "inner join user_table ut on ut.user_id = clt.user_id " +
-                    "where clt.chat_date >= now() - interval '5 minutes' and group_id is null " +
-                    "order by chat_id asc";
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            ArrayList<ChatMessage> chatMessages = new ArrayList<>();
-            while (resultSet.next()) {
-                chatMessages.add(new ChatMessage(
-                        resultSet.getInt("chat_id"),
-                        resultSet.getString("chat_date"),
-                        resultSet.getInt("user_id"),
-                        resultSet.getString("username"),
-                        resultSet.getInt("group_id"),
-                        resultSet.getString("chat_content")
-                ));
-            }
-            return chatMessages;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public List<ChatMessage> getMessageGlobalHistory() { // get global message history?
+        HibernateUtil.beginTransaction();
+        String SQLReq = "...";
+        Query query = HibernateUtil.getSession().createQuery(SQLReq);
+        List<ChatMessage> chatHistoryGlobal = query.getResultList();
+        
+        // HibernateUtil.getSession().createSQLQuery(
+        //     "select chat_id, chat_date, chat_log_table.user_id, user_table.username, group_id, " +
+        //     "chat_content from chat_log_table inner join user_table on user_table.user_id = chat_log_table.user_id where group_id is null", 
+        //     ChatMessage.class).getResultList();
+        HibernateUtil.endTransaction();
+        return chatHistoryGlobal;
     }
 }

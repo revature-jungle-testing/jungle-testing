@@ -2,15 +2,32 @@ package dev.com.thejungle.entity;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name = "chat_log_table")
 public class ChatMessage {
 
+    @Id
+    @GeneratedValue
+    @Column(name = "chat_id")
     private int chatId;
-    private String chatDate;
+    @Column(name = "chat_date")
+    private java.sql.Timestamp chatDate;
+    @Column(name = "user_id")
     private int userId;
+    @Transient
     private String userName;
+    @Column(name = "goup_id")
     private int groupId;
+    @Column(name = "chat_content")
     private String chatContent;
-
+ 
     public ChatMessage() {
 
     }
@@ -21,7 +38,7 @@ public class ChatMessage {
         this.setChatContent(chatContent);
     }
 
-    public ChatMessage(int chatId, String chatDate, int userId, String userName, int groupId, String chatContent) {
+    public ChatMessage(int chatId, java.sql.Timestamp chatDate, int userId, String userName, int groupId, String chatContent) {
         this.setChatId(chatId);
         this.setChatDate(chatDate);
         this.setUserId(userId);
@@ -62,11 +79,11 @@ public class ChatMessage {
         this.groupId = groupId;
     }
 
-    public String getChatDate() {
+    public java.sql.Timestamp getChatDate() {
         return chatDate;
     }
 
-    public void setChatDate(String chatDate) {
+    public void setChatDate(java.sql.Timestamp chatDate) {
         this.chatDate = chatDate;
     }
 
