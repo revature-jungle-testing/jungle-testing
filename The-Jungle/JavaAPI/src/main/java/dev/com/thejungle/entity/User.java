@@ -29,19 +29,21 @@ public class User {
     @Column(name = "user_about")
     private String userAbout;
     @Column(name = "user_birth_date")
-    private long userBirthdate;
+    private java.sql.Date userBirthdate;
     @Column(name = "image_format")
     private String imageFormat;
 
     // CONSTRUCTORS
     public User(){}
 
+    // constructor to login
     public User(String username, String passcode) {
         this.username = username;
         this.passcode = passcode;
     }
 
-    public User(int userId, String firstName, String lastName, String email, String username, long userBirthdate) {
+    // constructor for user information
+    public User(int userId, String firstName, String lastName, String email, String username, java.sql.Date userBirthdate) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -50,8 +52,9 @@ public class User {
         this.userBirthdate = userBirthdate;
     }
 
+    // constructor for user about + birthdate
     public User(int userId, String firstName, String lastName, String email, String username, String passcode,
-                String userAbout, long userBirthdate, String imageFormat) {
+                String userAbout, java.sql.Date userBirthdate, String imageFormat) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -155,11 +158,11 @@ public class User {
         this.userAbout = userAbout;
     }
 
-    public long getUserBirthdate() {
+    public java.sql.Date getUserBirthdate() {
         return userBirthdate;
     }
 
-    public void setUserBirthdate(long userBirthdate) {
+    public void setUserBirthdate(java.sql.Date userBirthdate) {
         this.userBirthdate = userBirthdate;
     }
 
