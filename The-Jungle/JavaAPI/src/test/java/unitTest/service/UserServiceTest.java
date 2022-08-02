@@ -10,6 +10,8 @@ import java.util.List;
 
 import javax.persistence.PersistenceException;
 
+import dev.com.thejungle.customexception.InvalidInputException;
+import dev.com.thejungle.customexception.TooManyCharacters;
 import dev.com.thejungle.customexception.UnallowedSpaces;
 import dev.com.thejungle.dao.implementations.UserDAO;
 import dev.com.thejungle.dao.interfaces.UserDAOInt;
@@ -109,45 +111,73 @@ public class UserServiceTest {
         }
     }
     
-    // @Test
-    // public void serviceRequestLoginNeg(){
-    //     User loginServiceRequest = new User(
-    //         "bestCoderNA", 
-    //         "apasscode"
-    //         );
-    //     User result = userService.loginService(loginServiceRequest);
-    //     Assert.assertNotNull(result);
-    // }
+    @Test
+    public void serviceRequestLoginNeg(){
+        try{
+            User loginServiceRequest = new User(
+            "Lorem ipsum dolor sit amet, consectetuer adipiscing eli", 
+            "apasscodeortwo"
+            );
+            User result = userService.loginService(loginServiceRequest);
+            Assert.fail();
+        }catch(TooManyCharacters e){
+            Assert.assertEquals("You are exceeding your character limit", e.getMessage());
+        }
+        
+    }
 
-    // @Test
-    // public void serviceGetUserByIdNeg(){
-    //     User result = userService.getUserByIdService(1337);
-    //     Assert.assertNotNull(result);
-    // }
+    @Test
+    public void serviceGetUserByIdNeg(){
+        try{
+            User result = userService.getUserByIdService(-1337);
+            Assert.fail();
+        }catch(InvalidInputException e){
+            Assert.assertEquals("Invalid Input: UserId Must Be A Non 0 Positive", e.getMessage());
+        }
+    }
 
-    // @Test
-    // public void serviceSearchForUserNeg(){
-    //     ArrayList<User> result = userService.searchForUserService("bestCoderNA");
-    //     Assert.assertNotNull(result);
-    // }
+    @Test
+    public void serviceSearchForUserNeg(){
+        try{
+            ArrayList<User> result = userService.searchForUserService("Lorem ipsum dolor sit amet, consectetuer adipiscing eli");
+            Assert.fail();
+        }catch(InvalidInputException e){
+            Assert.assertEquals("Invalid Input: UserName Exceeds 50 Characters", e.getMessage());
+        }
+    }
 
     // @Test
     // public void serviceGetAllUsersNeg(){
+    //     try{
+    //         List<User> result = userService.getAllUsersService();
+
+    //     }catch(){
+
+    //     }
     //     List<User> result = userService.getAllUsersService();
     //     Assert.assertNotNull(result);
     // }
 
-    // @Test(expected = NullPointerException.class)
-    // public void serviceGetGroupsNamesNeg(){
-    //     HashMap<Integer, String> result = userService.getGroupsNames(1337);
-    //     Assert.assertNotNull(result);
-    // }
+    @Test
+    public void serviceGetGroupsNamesNeg(){
+        try{
+            HashMap<Integer, String> result = userService.getGroupsNames(-1337);
+            Assert.fail();
+        }catch(InvalidInputException e){
+            Assert.assertEquals("User Id needs to be positive", e.getMessage());
 
-    // @Test(expected = NullPointerException.class)
-    // public void serviceGetGroupsNeg(){
-    //     ArrayList<Integer> result = userService.getGroups(1337);
-    //     Assert.assertNotNull(result);
-    // }
+        }
+    }
+
+    @Test
+    public void serviceGetGroupsNeg(){
+        try{
+            ArrayList<Integer> result = userService.getGroups(2000000);
+
+        }catch(InvalidInputException e){
+            Assert.assertEquals("User Id needs to be positive and in range", e.getMessage());
+        }
+    }
     
 
 }
