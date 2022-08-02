@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.persistence.PersistenceException;
-
 import dev.com.thejungle.customexception.InvalidInputException;
 import dev.com.thejungle.customexception.TooManyCharacters;
 import dev.com.thejungle.customexception.UnallowedSpaces;
@@ -31,15 +29,15 @@ public class UserServiceTest {
 
     }
     
-    //POSTIVE
+    //POSITIVE
     @Test
     public void serviceCreateNewUserPosi(){
         User createNewUser = new User(
-            1994, 
-            "Lyndon", 
-            "Sully", 
-            "notjerk@hotmail.com", 
-            "everbetterCoderNA", 
+            1993, 
+            "Herman", 
+            "Fluitt", 
+            "jerk@hotmail.com", 
+            "betterCoderNA", 
             "apasscode", 
             "He's swole", 
             java.sql.Date.valueOf("1993-01-05"), 
@@ -52,8 +50,8 @@ public class UserServiceTest {
     @Test
     public void serviceRequestLoginPosi(){
         User loginServiceRequest = new User(
-            "bestCoderNA", 
-            "apasscode"
+            "ApeEscape", 
+            "banana"
             );
         User result = userService.loginService(loginServiceRequest);
         Assert.assertNotNull(result);
@@ -67,7 +65,7 @@ public class UserServiceTest {
 
     @Test
     public void serviceSearchForUserPosi(){
-        ArrayList<User> result = userService.searchForUserService("bestCoderNA");
+        ArrayList<User> result = userService.searchForUserService("ApeEscape");
         Assert.assertNotNull(result);
     }
 

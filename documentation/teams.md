@@ -30,9 +30,9 @@ Can change around if requested/needed:
 - Che
 
 ## Team Five
-- Duong *
+- David *
 - Nirlouse
 - Jason
-- David
+- Duong
 
 --> figuring out what workload is needed, who is interested working in what part of the application and see if teams naturally form

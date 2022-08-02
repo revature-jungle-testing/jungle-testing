@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.junit.AfterClass;
 import org.junit.Test;
 
 import dev.com.thejungle.dao.implementations.UserDAO;
