@@ -23,7 +23,7 @@ public class UserService implements UserServiceInt {
         } else if (user.getPasscode().matches(".*\\s+.*")) {
             throw new UnallowedSpaces("No spaces allowed in username or password");
         } else if (user.getUsername().isEmpty() || user.getFirstName().isEmpty() || user.getLastName().isEmpty() ||
-                user.getPasscode().isEmpty() || user.getEmail().isEmpty() || user.getUserBirthdate() == 0) {
+                user.getPasscode().isEmpty() || user.getEmail().isEmpty() || user.getUserBirthdate() == null) {
             throw new BlankInputs("Please fill in the blanks");
         } else {
             return this.userDAO.createNewUser(user);
@@ -49,12 +49,12 @@ public class UserService implements UserServiceInt {
     }
 
     @Override
-    public User loginService(String username, String passcode) {
-        if ((username.length() > 50) || (passcode.length() > 50))
+    public User loginService(User user) {
+        if ((user.getUsername().length() > 50) || (user.getPasscode().length() > 50))
             throw new TooManyCharacters("You are exceeding your character limit");
-        if ((username.length() == 0) || (passcode.length() == 0))
+        if ((user.getUsername().length() == 0) || (user.getPasscode().length() == 0))
             throw new NoValuePasscode("You must enter username and password");
-        return this.userDAO.requestLogin(username, passcode);
+        return this.userDAO.requestLogin(user);
     }
 
 

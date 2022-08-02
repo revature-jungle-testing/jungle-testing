@@ -32,7 +32,7 @@ public class UserDAO implements UserDAOInt {
     @Override
     public User requestLogin(User user) {
         HibernateUtil.beginTransaction();
-        User returnUser = (User) HibernateUtil.getSession().createQuery("from User_table where username = :username and passcode = :passcode", User.class).setParameter("username", user.getUsername()).setParameter("passcode", user.getPasscode()).uniqueResult();
+        User returnUser = (User) HibernateUtil.getSession().createQuery("FROM User where username = :username and passcode = :passcode", User.class).setParameter("username", user.getUsername()).setParameter("passcode", user.getPasscode()).uniqueResult();
         HibernateUtil.endTransaction();
         return returnUser; 
 
@@ -60,7 +60,7 @@ public class UserDAO implements UserDAOInt {
     @Override
     public ArrayList<User> searchForUser(String username) {
         HibernateUtil.beginTransaction();
-        ArrayList<User> users = (ArrayList<User>) HibernateUtil.getSession().createQuery("from User_table where username ilike :username", User.class).setParameter("username", username).list();
+        ArrayList<User> users = (ArrayList<User>) HibernateUtil.getSession().createQuery("FROM User where username like :username", User.class).setParameter("username", "%" + username + "%" ).list();
         HibernateUtil.endTransaction();
         return users;
     }
@@ -72,7 +72,7 @@ public class UserDAO implements UserDAOInt {
     @Override
     public List<User> getAllUsers() {
         HibernateUtil.beginTransaction();
-        List<User> users = HibernateUtil.getSession().createQuery("from User_table", User.class).list();
+        List<User> users = HibernateUtil.getSession().createQuery("FROM User", User.class).getResultList();
         HibernateUtil.endTransaction();
         return users;
     }
