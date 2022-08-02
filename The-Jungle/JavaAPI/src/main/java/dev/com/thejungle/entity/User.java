@@ -66,6 +66,19 @@ public class User {
         this.imageFormat = imageFormat;
     }
 
+    public User(String firstName, String lastName, String email, String username, String passcode,
+                String userAbout, java.sql.Date userBirthdate, String imageFormat) {
+
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.username = username;
+        this.passcode = passcode;
+        this.userAbout = userAbout;
+        this.userBirthdate = userBirthdate;
+        this.imageFormat = imageFormat;
+    }
+
 
     // TOSTRING, HASHCODE, AND EQUALS
     @Override
