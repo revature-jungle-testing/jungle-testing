@@ -14,7 +14,7 @@ public interface UserServiceInt {
 
     ArrayList<User> searchForUserService(String username);
 
-    User loginService(String username, String passcode);
+    User loginService(User user);
 
     List<User> getAllUsersService();
 
