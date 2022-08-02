@@ -12,7 +12,7 @@ public interface UserDAOInt {
 
     User createNewUser(User user);
 
-    User requestLogin(String username, String password);
+    User requestLogin(User user);
 
     User getUserById(int userId);
 
