@@ -65,10 +65,6 @@ public class userCreateSteps {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
     }
-    @Then("the user should receive an error")
-    public void the_user_should_receive_an_error_over_email() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
+
 
 }
