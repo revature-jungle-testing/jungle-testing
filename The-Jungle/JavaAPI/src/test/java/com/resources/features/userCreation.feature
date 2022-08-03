@@ -8,7 +8,7 @@ Feature: User should be able to create a new profile given personal information
         When the user enters email
         When the user enters a correct username
         When the user enters a correct password
-        When the user clicks on the submit button
+        When the user clicks on the signup button
         Then the user should be sent to their profile page
 
     Scenario: As the System, I want to reject bad new account creations with a blank username.
@@ -18,7 +18,7 @@ Feature: User should be able to create a new profile given personal information
         When the user enters Date of Birth
         When the user enters email
         When the user enters a correct password
-        When the user clicks on the submit button
+        When the user clicks on the signup button
         Then the user should receive an error
 
     Scenario: As the System, I want to reject bad new account creations with a duplicate email.
@@ -29,5 +29,5 @@ Feature: User should be able to create a new profile given personal information
         When the user enters duplicate email
         When the user enters a correct username
         When the user enters a correct password
-        When the user clicks on the submit button
+        When the user clicks on the signup button
         Then the user should receive an error
