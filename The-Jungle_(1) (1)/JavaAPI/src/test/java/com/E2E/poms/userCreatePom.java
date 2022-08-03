@@ -68,9 +68,4 @@ public class userCreatePom {
         this.signupButton.click();
     }
 
-    
-    
-
-    
-   
 }
