@@ -37,7 +37,7 @@ public class UserServiceTest {
             "Herman", 
             "Fluitt", 
             "jerk@hotmail.com", 
-            "betterCoderNA", 
+            "bestCoderNA", 
             "apasscode", 
             "He's swole", 
             java.sql.Date.valueOf("1993-01-05"), 
