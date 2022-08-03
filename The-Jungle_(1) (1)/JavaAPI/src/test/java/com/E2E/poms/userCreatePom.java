@@ -65,6 +65,8 @@ public class userCreatePom {
     public WebElement signupButton;
 
     public void signupbutton(){
+        WebDriverWait waitSubmit = new WebDriverWait(driver, null);
+        waitSubmit.until(ExpectedConditions.elementToBeClickable(signupButton));
         this.signupButton.click();
     }
 
