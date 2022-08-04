@@ -22,21 +22,21 @@ public class userCreatePom {
     @FindBy(id = "signup-firstname")
     public WebElement signupFirstname;
 
-    public void singupFirstname(String fname){
+    public void signupFirstname(String fname){
         this.signupFirstname.sendKeys(fname);
     }
 
     @FindBy(id = "signup-lastname")
     public WebElement signupLastname;
 
-    public void singupLastname(String lname){
+    public void signupLastname(String lname){
         this.signupLastname.sendKeys(lname);
     }
 
     @FindBy(id = "signup-email")
     public WebElement signupEmail;
 
-    public void singupEmail(String email){
+    public void signupEmail(String email){
         this.signupEmail.sendKeys(email);
     }
 
@@ -64,10 +64,27 @@ public class userCreatePom {
     @FindBy(id = "signup-submit")
     public WebElement signupButton;
 
+    @FindBy(className = "leftSection")
+    public WebElement leftSection;
+
     public void signupbutton(){
-        WebDriverWait waitSubmit = new WebDriverWait(driver, 10);
-        waitSubmit.until(ExpectedConditions.elementToBeClickable(signupButton));
+        this.signupUsername.click();
+        this.leftSection.click();
         this.signupButton.click();
+        
     }
+    public void signupbutton2(){
+        this.signupUsername.click();
+        this.leftSection.click();
+        this.signupUsername.click();
+        
+    }
+
+
+    @FindBy(xpath = "/html/body/div/div/div[2]/div/div[9]/p")
+    public WebElement invalidMessage;
+
+    @FindBy(xpath = "/html/body/div/div/div[2]/div/div[6]/div/p")
+    public WebElement invalidMessage2;
 
 }

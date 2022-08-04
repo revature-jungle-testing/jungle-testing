@@ -15,6 +15,7 @@ public class userLoginSteps {
     @Given("the user is on the log-in page")
     public void the_user_is_on_the_log_in_page() {
         TestRunner.driver.get("https://cam634.github.io/FrontEnd/loginpage/login.html");
+        // TestRunner.driver.get("File://C:/Users/lyndo/Revature-Training/Project3/jungle-testing/The-Jungle_(1) (1)/FrontEnd/loginpage/login.html");
     }
     @When("the user enters correct username")
     public void the_user_enters_correct_username() {
@@ -23,7 +24,6 @@ public class userLoginSteps {
     @When("the user enters correct password")
     public void the_user_enters_correct_password() {
         TestRunner.userLoginPom.passcodeLoginInput("banana");
-        TestRunner.userLoginPom.rightSection();
     }
     @When("the user clicks on the log-in button correct")
     public void the_user_clicks_on_the_log_in_button_correct() {
@@ -44,7 +44,6 @@ public class userLoginSteps {
     @When("the user enters wrong password")
     public void the_user_enters_wrong_password() {
         TestRunner.userLoginPom.passcodeLoginInput("notbanana");
-        TestRunner.userLoginPom.rightSection();
     }
     @When("the user clicks on the log-in button incorrect")
     public void the_user_clicks_on_the_log_in_button_incorrect() {
