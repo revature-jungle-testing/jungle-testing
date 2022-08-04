@@ -54,7 +54,7 @@ public class userCreateSteps {
     }
 
     //Neg Steps username
-    @Then("the user should receive an error")
+    @Then("the user should receive an error over username")
     public void the_user_should_receive_an_error_over_username() {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
@@ -65,7 +65,7 @@ public class userCreateSteps {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
     }
-    @Then("the user should receive an error")
+    @Then("the user should receive an error over email")
     public void the_user_should_receive_an_error_over_email() {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
