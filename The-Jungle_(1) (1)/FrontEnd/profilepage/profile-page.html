@@ -150,11 +150,11 @@
             </div>
 
             <!-- Logout Button...need code -->
-            <div class="logout-container">
+            <div onclick="clickLogout()" class="logout-container">
               <div class="logout valign-text-middle">Logout</div>
               <img class="x-icon" src="img/logout-icon@2x.svg" />
+              </div>
             </div>
-          </div>
           
           <div class="about-me">
 
@@ -254,4 +254,10 @@
   <script src="dZazulak.js"></script>
   <script src="nebulousHammer.js"></script>
   <script src="userprofileimage-vfh.js"></script>
+  <script>
+
+    function clickLogout(){
+      window.location.href = "../loginpage/login.html";
+    }
+  </script>
 </html>

@@ -1,6 +1,8 @@
 package com.E2E.poms;
 
 
+import java.time.Duration;
+
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,20 +28,36 @@ public class userLoginPom {
         this.usernameInput.sendKeys(username);
     }
 
+    @FindBy(className = "rightSection")
+    public WebElement rightSection;
+    
+    public void rightSection(){
+        this.rightSection.click();
+    }
+
     @FindBy(id = "passcodeInput")
     public WebElement passcodeInput;
 
     public void passcodeLoginInput(String password){
         this.passcodeInput.sendKeys(password);
+        
     }
 
     @FindBy(id = "submitLogin")
     public WebElement submitLogin;
 
-    public void submitLogin(){
-        WebDriverWait waitSubmit = new WebDriverWait(driver, 10);
-        waitSubmit.until(ExpectedConditions.elementToBeClickable(submitLogin));
+    public void submitLoginCorrect(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.elementToBeClickable(submitLogin));
         this.submitLogin.click();
+        
+    }
+
+    public void submitLoginIncorrect(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.elementToBeClickable(submitLogin));
+        this.submitLogin.click();
+        
     }
     
 

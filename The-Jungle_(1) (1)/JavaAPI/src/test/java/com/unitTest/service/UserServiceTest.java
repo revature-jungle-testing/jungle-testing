@@ -40,7 +40,7 @@ public class UserServiceTest {
     }
     
     //POSITIVE
-    @Test
+    @Test   // need to mock these and the serviceCreateNewUserNeg
     public void serviceCreateNewUserPosi(){
         long date = 742892400000L;
         User createNewUser = new User(

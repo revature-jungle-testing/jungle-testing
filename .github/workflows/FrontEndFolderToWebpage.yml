@@ -1,0 +1,22 @@
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  copy-file:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Pushes test file
+      uses: dmnemec/copy_file_to_another_repo_action@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      with:
+        source_file: 'The-Jungle_(1) (1)/FrontEnd'
+        destination_repo: 'cam634/cam634.github.io'
+        user_email: 'cam6352@gmail.com'
+        user_name: 'cam634'
+        commit_message: 'Updating gitpage from webpage folder!'
