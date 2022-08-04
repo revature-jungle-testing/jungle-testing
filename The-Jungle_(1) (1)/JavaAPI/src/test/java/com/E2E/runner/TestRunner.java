@@ -1,7 +1,6 @@
 package com.E2E.runner;
 
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 import org.eclipse.jetty.util.log.Log;
 import org.junit.AfterClass;
