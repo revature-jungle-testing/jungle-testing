@@ -37,8 +37,8 @@ public class userLoginPom {
     public WebElement submitLogin;
 
     public void submitLogin(){
-        WebDriverWait waitSubmit = new WebDriverWait(driver, 10);
-        waitSubmit.until(ExpectedConditions.elementToBeClickable(submitLogin));
+        WebDriverWait waitLogin = new WebDriverWait(driver, 10);
+        waitLogin.until(ExpectedConditions.elementToBeClickable(submitLogin));
         this.submitLogin.click();
     }
     
