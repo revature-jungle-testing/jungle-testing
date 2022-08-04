@@ -35,7 +35,7 @@ public class UserServiceTest {
     }
     
     //POSITIVE
-    @Test
+    @Test   // need to mock these and the serviceCreateNewUserNeg
     public void serviceCreateNewUserPosi(){
         long date = 742892400000L;
         User createNewUser = new User(
@@ -146,18 +146,6 @@ public class UserServiceTest {
             Assert.assertEquals("Invalid Input: UserName Exceeds 50 Characters", e.getMessage());
         }
     }
-
-    // @Test
-    // public void serviceGetAllUsersNeg(){
-    //     try{
-    //         List<User> result = userService.getAllUsersService();
-
-    //     }catch(){
-
-    //     }
-    //     List<User> result = userService.getAllUsersService();
-    //     Assert.assertNotNull(result);
-    // }
 
     @Test
     public void serviceGetGroupsNamesNeg(){
