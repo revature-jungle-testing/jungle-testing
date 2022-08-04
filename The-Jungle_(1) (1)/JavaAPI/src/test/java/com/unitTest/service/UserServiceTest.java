@@ -1,7 +1,8 @@
-package unitTest.service;
+package com.unitTest.service;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.junit.Assert;
 
 import java.util.ArrayList;
@@ -19,19 +20,24 @@ import dev.com.thejungle.service.interfaces.UserServiceInt;
 
 public class UserServiceTest {
 
+    public static UserDAO userDao;
     public static UserServiceInt userService;
-    public static UserDAOInt userDao;
+    public static UserDAO mockDao;
+    public static UserServiceInt mockService;
+    
 
     @BeforeClass
     public static void setup(){
         userDao = new UserDAO();
         userService = new UserService(userDao);
-
+        mockDao = Mockito.mock(UserDAO.class);
+        mockService = new UserService(mockDao);
     }
     
     //POSITIVE
     @Test   // need to mock these and the serviceCreateNewUserNeg
     public void serviceCreateNewUserPosi(){
+        long date = 742892400000L;
         User createNewUser = new User(
             1993, 
             "Herman", 
@@ -40,7 +46,7 @@ public class UserServiceTest {
             "bestCoderNA", 
             "apasscode", 
             "He's swole", 
-            java.sql.Date.valueOf("1993-01-05"), 
+            date, 
             ".PeeEnGee"
             );
         User result = userService.createNewUserService(createNewUser);
@@ -49,7 +55,9 @@ public class UserServiceTest {
     
     @Test
     public void serviceRequestLoginPosi(){
-        User result = userService.loginService("ApeEscape", "banana");
+        String username = "ApeEscape";
+        String passcode = "banana";
+        User result = userService.loginService(username, passcode);
         Assert.assertNotNull(result);
     }
 
@@ -71,34 +79,35 @@ public class UserServiceTest {
         Assert.assertNotNull(result);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void serviceGetGroupsNamesPosi(){
-        HashMap<Integer, String> result = userService.getGroupsNames(1337);
+        HashMap<Integer, String> result = userService.getGroupsNames(10000);
         Assert.assertNotNull(result);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void serviceGetGroupsPosi(){
-        ArrayList<Integer> result = userService.getGroups(1337);
+        ArrayList<Integer> result = userService.getGroups(10000);
         Assert.assertNotNull(result);
     }
 
     //NEGATIVES
     @Test
-    public void serviceCreateNewUserNeg(){
+    public void createUserDupeEmailNeg(){
         try{
-            User createNewUser = new User(
+            long date = 742892400000L;
+            User createUserDupeEmail = new User(
             1994, 
             "Lyndon", 
             "Sully", 
-            "notjerk@hotmail.com", 
+            "email@email.com", 
             "even better Coder NA", 
             "a passcode", 
             "He's swole", 
-            java.sql.Date.valueOf("1994-01-11"), 
+            date, 
             ".PeeEnGee"
             );
-            User result = userService.createNewUserService(createNewUser);
+            User result = userService.createNewUserService(createUserDupeEmail);
             Assert.fail();
         }catch(UnallowedSpaces e){
             Assert.assertEquals("No spaces allowed in username or password", e.getMessage());
@@ -108,7 +117,9 @@ public class UserServiceTest {
     @Test
     public void serviceRequestLoginNeg(){
         try{
-            User result = userService.loginService("Lorem ipsum dolor sit amet, consectetuer adipiscing eli", "apasscodeortwo");
+            String username = "Lorem ipsum dolor sit amet, consectetuer adipiscing eli";
+            String passcode = "apasscodeortwo";
+            User result = userService.loginService(username, passcode);
             Assert.fail();
         }catch(TooManyCharacters e){
             Assert.assertEquals("You are exceeding your character limit", e.getMessage());

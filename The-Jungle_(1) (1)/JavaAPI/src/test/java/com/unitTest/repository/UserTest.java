@@ -13,6 +13,9 @@ import dev.com.thejungle.dao.implementations.UserDAO;
 import dev.com.thejungle.dao.interfaces.UserDAOInt;
 import dev.com.thejungle.entity.User;
 
+import dev.com.thejungle.customexception.InvalidInputException;
+
+
 public class UserTest {
 
     public static UserDAOInt userDao;
@@ -20,35 +23,32 @@ public class UserTest {
     @BeforeClass
     public static void setup(){
         userDao = new UserDAO();
-
-
-
-        
     }
 
     @Test
     public void createNewUser(){
+        long date = 742892400000L;
         User createNewUser = new User(
-            1993, 
+            558, 
             "Herman", 
             "Fluitt", 
-            "jerk@hotmail.com", 
-            "bestCoderNA", 
+            "thejerkstorecalled@hotmail.com", 
+            "bestCoderbaNAnanananana", 
             "apasscode", 
             "He's swole", 
-            19930105000001L, 
+            date,
             ".PeeEnGee"
             );
-
         User result = userDao.createNewUser(createNewUser);
         Assert.assertNotNull(result);
     }
 
     @Test
     public void requestLogin(){
-        User result = userDao.requestLogin("ApeEscape", "banana");
+        String username = "bestCoderNA";
+        String passcode = "apasscode";
+        User result = userDao.requestLogin(username, passcode);
         Assert.assertNotNull(result);
-
     }
 
     @Test
@@ -80,7 +80,6 @@ public class UserTest {
         ArrayList<Integer> result = userDao.getGroups(10000);
         Assert.assertNotNull(result);
     }
+
     
-
-
 }
