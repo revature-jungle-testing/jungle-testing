@@ -36,7 +36,7 @@ public class UserTest {
             "bestCoderNA", 
             "apasscode", 
             "He's swole", 
-            java.sql.Date.valueOf("1993-01-05"), 
+            19930105000001L, 
             ".PeeEnGee"
             );
 
@@ -46,12 +46,7 @@ public class UserTest {
 
     @Test
     public void requestLogin(){
-        User loginRequest = new User(
-            "bestCoderNA", 
-            "apasscode"
-            );
-
-        User result = userDao.requestLogin(loginRequest);
+        User result = userDao.requestLogin("ApeEscape", "banana");
         Assert.assertNotNull(result);
 
     }
@@ -74,15 +69,15 @@ public class UserTest {
         Assert.assertNotNull(result);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void getGroupsNames(){
-        HashMap<Integer, String> result = userDao.getGroupsNames(1337);
+        HashMap<Integer, String> result = userDao.getGroupsNames(10000);
         Assert.assertNotNull(result);
     }
     
-    @Test(expected = NullPointerException.class)
+    @Test
     public void getGroups(){
-        ArrayList<Integer> result = userDao.getGroups(1337);
+        ArrayList<Integer> result = userDao.getGroups(10000);
         Assert.assertNotNull(result);
     }
     
