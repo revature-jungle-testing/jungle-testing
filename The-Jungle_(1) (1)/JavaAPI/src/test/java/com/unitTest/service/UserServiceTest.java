@@ -30,7 +30,7 @@ public class UserServiceTest {
     }
     
     //POSITIVE
-    @Test
+    @Test   // need to mock these and the serviceCreateNewUserNeg
     public void serviceCreateNewUserPosi(){
         User createNewUser = new User(
             1993, 
@@ -49,11 +49,7 @@ public class UserServiceTest {
     
     @Test
     public void serviceRequestLoginPosi(){
-        User loginServiceRequest = new User(
-            "ApeEscape", 
-            "banana"
-            );
-        User result = userService.loginService(loginServiceRequest);
+        User result = userService.loginService("ApeEscape", "banana");
         Assert.assertNotNull(result);
     }
 
@@ -112,11 +108,7 @@ public class UserServiceTest {
     @Test
     public void serviceRequestLoginNeg(){
         try{
-            User loginServiceRequest = new User(
-            "Lorem ipsum dolor sit amet, consectetuer adipiscing eli", 
-            "apasscodeortwo"
-            );
-            User result = userService.loginService(loginServiceRequest);
+            User result = userService.loginService("Lorem ipsum dolor sit amet, consectetuer adipiscing eli", "apasscodeortwo");
             Assert.fail();
         }catch(TooManyCharacters e){
             Assert.assertEquals("You are exceeding your character limit", e.getMessage());
@@ -143,18 +135,6 @@ public class UserServiceTest {
             Assert.assertEquals("Invalid Input: UserName Exceeds 50 Characters", e.getMessage());
         }
     }
-
-    // @Test
-    // public void serviceGetAllUsersNeg(){
-    //     try{
-    //         List<User> result = userService.getAllUsersService();
-
-    //     }catch(){
-
-    //     }
-    //     List<User> result = userService.getAllUsersService();
-    //     Assert.assertNotNull(result);
-    // }
 
     @Test
     public void serviceGetGroupsNamesNeg(){
