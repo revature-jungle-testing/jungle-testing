@@ -23,6 +23,7 @@ public class TestRunner {
 
     @BeforeClass
     public static void setup(){
+        System.setProperty("webdriver.chrome.driver", "src/test/chromedriver.exe");
         driver = new ChromeDriver();       
 
     }

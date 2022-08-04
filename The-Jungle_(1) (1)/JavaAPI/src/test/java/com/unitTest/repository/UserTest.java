@@ -13,6 +13,9 @@ import dev.com.thejungle.dao.implementations.UserDAO;
 import dev.com.thejungle.dao.interfaces.UserDAOInt;
 import dev.com.thejungle.entity.User;
 
+import dev.com.thejungle.customexception.InvalidInputException;
+
+
 public class UserTest {
 
     public static UserDAOInt userDao;
@@ -20,40 +23,32 @@ public class UserTest {
     @BeforeClass
     public static void setup(){
         userDao = new UserDAO();
-
-
-
-        
     }
 
     @Test
     public void createNewUser(){
+        long date = 742892400000L;
         User createNewUser = new User(
-            1993, 
+            558, 
             "Herman", 
             "Fluitt", 
-            "jerk@hotmail.com", 
-            "bestCoderNA", 
+            "thejerkstorecalled@hotmail.com", 
+            "bestCoderbaNAnanananana", 
             "apasscode", 
             "He's swole", 
-            java.sql.Date.valueOf("1993-01-05"), 
+            date,
             ".PeeEnGee"
             );
-
         User result = userDao.createNewUser(createNewUser);
         Assert.assertNotNull(result);
     }
 
     @Test
     public void requestLogin(){
-        User loginRequest = new User(
-            "bestCoderNA", 
-            "apasscode"
-            );
-
-        User result = userDao.requestLogin(loginRequest);
+        String username = "bestCoderNA";
+        String passcode = "apasscode";
+        User result = userDao.requestLogin(username, passcode);
         Assert.assertNotNull(result);
-
     }
 
     @Test
@@ -74,18 +69,17 @@ public class UserTest {
         Assert.assertNotNull(result);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void getGroupsNames(){
-        HashMap<Integer, String> result = userDao.getGroupsNames(1337);
+        HashMap<Integer, String> result = userDao.getGroupsNames(10000);
         Assert.assertNotNull(result);
     }
     
-    @Test(expected = NullPointerException.class)
+    @Test
     public void getGroups(){
-        ArrayList<Integer> result = userDao.getGroups(1337);
+        ArrayList<Integer> result = userDao.getGroups(10000);
         Assert.assertNotNull(result);
     }
+
     
-
-
 }
