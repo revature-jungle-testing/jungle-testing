@@ -19,7 +19,7 @@ Feature: User should be able to create a new profile given personal information
         When the user enters email
         When the user enters a correct password
         When the user clicks on the signup button
-        Then the user should receive an error
+        Then the user should receive an error over username
 
     Scenario: As the System, I want to reject bad new account creations with a duplicate email.
         Given the user is on the sign up page
@@ -30,4 +30,4 @@ Feature: User should be able to create a new profile given personal information
         When the user enters a correct username
         When the user enters a correct password
         When the user clicks on the signup button
-        Then the user should receive an error
+        Then the user should receive an error over email
