@@ -1,6 +1,7 @@
 package com.E2E.runner;
 
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 import org.eclipse.jetty.util.log.Log;
 import org.junit.AfterClass;
@@ -43,6 +44,7 @@ public class TestRunner {
     public static void setup(){
         System.setProperty("webdriver.chrome.driver", "src/test/java/com/resources/chromedriver.exe");
         driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         // wait = new WebDriverWait.WebDriverWait(driver);
         

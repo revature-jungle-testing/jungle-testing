@@ -30,16 +30,13 @@ public class userLoginPom {
 
     @FindBy(className = "rightSection")
     public WebElement rightSection;
-    
-    public void rightSection(){
-        this.rightSection.click();
-    }
 
     @FindBy(id = "passcodeInput")
     public WebElement passcodeInput;
 
     public void passcodeLoginInput(String password){
         this.passcodeInput.sendKeys(password);
+        this.rightSection.click();
         
     }
 
@@ -47,15 +44,15 @@ public class userLoginPom {
     public WebElement submitLogin;
 
     public void submitLoginCorrect(){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.elementToBeClickable(submitLogin));
+        // WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5000));
+        // wait.until(ExpectedConditions.elementToBeClickable(submitLogin));
         this.submitLogin.click();
         
     }
 
     public void submitLoginIncorrect(){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.elementToBeClickable(submitLogin));
+        // WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        // wait.until(ExpectedConditions.elementToBeClickable(submitLogin));
         this.submitLogin.click();
         
     }
