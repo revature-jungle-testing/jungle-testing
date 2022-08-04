@@ -14,7 +14,7 @@ public class userLoginSteps {
     //Login Posi Steps
     @Given("the user is on the log-in page")
     public void the_user_is_on_the_log_in_page() {
-        TestRunner.driver.get("File://C:/Users/lyndo/Revature-Training/Project3/jungle-testing/The-Jungle_(1) (1)/FrontEnd/loginpage/login.html");
+        TestRunner.driver.get("https://cam634.github.io/FrontEnd/loginpage/login.html");
     }
     @When("the user enters correct username")
     public void the_user_enters_correct_username() {

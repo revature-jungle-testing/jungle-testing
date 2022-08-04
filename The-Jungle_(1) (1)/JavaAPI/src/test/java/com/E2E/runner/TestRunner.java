@@ -14,6 +14,7 @@ import com.E2E.poms.userChatPom;
 import com.E2E.poms.userCreatePom;
 import com.E2E.poms.userGlobalChat;
 import com.E2E.poms.userLoginPom;
+import com.E2E.poms.userLogoutPom;
 import com.E2E.poms.userSearchPom;
 
 import io.cucumber.junit.Cucumber;
@@ -34,6 +35,7 @@ public class TestRunner {
     public static userGlobalChat userGlobalChat;
     public static userChatPom userChatPom;
     public static userSearchPom userSearchPom;
+    public static userLogoutPom userLogoutPom;
 
 
 
@@ -45,6 +47,7 @@ public class TestRunner {
         // wait = new WebDriverWait.WebDriverWait(driver);
         
         userLoginPom = new userLoginPom(driver);
+        userLogoutPom = new userLogoutPom(driver);
         userCreatePom = new userCreatePom(driver);
         userGlobalChat = new userGlobalChat(driver);
         userChatPom = new userChatPom(driver);
