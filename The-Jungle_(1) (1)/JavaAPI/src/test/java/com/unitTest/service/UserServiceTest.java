@@ -9,9 +9,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import dev.com.thejungle.customexception.BlankInputs;
+import dev.com.thejungle.customexception.DuplicateEmail;
+import dev.com.thejungle.customexception.DuplicateUsername;
 import dev.com.thejungle.customexception.InvalidInputException;
+import dev.com.thejungle.customexception.NoValuePasscode;
 import dev.com.thejungle.customexception.TooManyCharacters;
 import dev.com.thejungle.customexception.UnallowedSpaces;
+import dev.com.thejungle.customexception.UserNotFound;
 import dev.com.thejungle.dao.implementations.UserDAO;
 import dev.com.thejungle.dao.interfaces.UserDAOInt;
 import dev.com.thejungle.entity.User;
@@ -92,93 +97,264 @@ public class UserServiceTest {
     }
 
     //NEGATIVES
-    @Test
+    @Test(expected = DuplicateEmail.class)
     public void createUserDupeEmailNeg(){
-        try{
             long date = 742892400000L;
             User createUserDupeEmail = new User(
             1994, 
             "Lyndon", 
             "Sully", 
             "email@email.com", 
-            "even better Coder NA", 
-            "a passcode", 
+            "evenbetterCoderNA", 
+            "apasscode", 
             "He's swole", 
             date, 
             ".PeeEnGee"
             );
-            User result = userService.createNewUserService(createUserDupeEmail);
-            Assert.fail();
-        }catch(UnallowedSpaces e){
-            Assert.assertEquals("No spaces allowed in username or password", e.getMessage());
-        }
+            Mockito.when(mockDao.createNewUser(createUserDupeEmail)).thenThrow(new DuplicateEmail("email already used"));
+            mockService.createNewUserService(createUserDupeEmail);
     }
     
-    @Test
-    public void serviceRequestLoginNeg(){
-        try{
-            String username = "Lorem ipsum dolor sit amet, consectetuer adipiscing eli";
-            String passcode = "apasscodeortwo";
-            User result = userService.loginService(username, passcode);
-            Assert.fail();
-        }catch(TooManyCharacters e){
-            Assert.assertEquals("You are exceeding your character limit", e.getMessage());
-        }
-        
+    @Test(expected = DuplicateUsername.class)
+    public void createUserDupeUsernameNeg(){
+            long date = 742892400000L;
+            User createUserDupeUsername = new User(
+            1994, 
+            "Lyndon", 
+            "Sully", 
+            "email@email.com", 
+            "Austin", 
+            "apasscode", 
+            "He's swole", 
+            date, 
+            ".PeeEnGee"
+            );
+            Mockito.when(mockDao.createNewUser(createUserDupeUsername)).thenThrow(new DuplicateUsername("username already taken"));
+            mockService.createNewUserService(createUserDupeUsername);
     }
 
-    @Test
-    public void serviceGetUserByIdNeg(){
-        try{
-            User result = userService.getUserByIdService(-1337);
-            Assert.fail();
-        }catch(InvalidInputException e){
-            Assert.assertEquals("Invalid Input: UserId Must Be A Non 0 Positive", e.getMessage());
-        }
-    }
-
-    @Test
-    public void serviceSearchForUserNeg(){
-        try{
-            ArrayList<User> result = userService.searchForUserService("Lorem ipsum dolor sit amet, consectetuer adipiscing eli");
-            Assert.fail();
-        }catch(InvalidInputException e){
-            Assert.assertEquals("Invalid Input: UserName Exceeds 50 Characters", e.getMessage());
-        }
-    }
-
-    // @Test
-    // public void serviceGetAllUsersNeg(){
-    //     try{
-    //         List<User> result = userService.getAllUsersService();
-
-    //     }catch(){
-
-    //     }
-    //     List<User> result = userService.getAllUsersService();
-    //     Assert.assertNotNull(result);
+    // need to refactor UserService for this test
+    // @Test(expected = UnallowedSpaces.class)
+    // public void createUserUnallowedSpacesEmailNeg(){
+    //         long date = 742892400000L;
+    //         User createUserUnallowedSpacesEmail = new User(
+    //         1994, 
+    //         "Lyndon", 
+    //         "Sully", 
+    //         "emai lmail@email.com", 
+    //         "evenbetterCoderNAna", 
+    //         "apasscode", 
+    //         "He's swole", 
+    //         date, 
+    //         ".PeeEnGee"
+    //         );
+    //         Mockito.when(mockDao.createNewUser(createUserUnallowedSpacesEmail)).thenThrow(new UnallowedSpaces("no spaces in email"));
+    //         mockService.createNewUserService(createUserUnallowedSpacesEmail);
     // }
 
-    @Test
-    public void serviceGetGroupsNamesNeg(){
-        try{
-            HashMap<Integer, String> result = userService.getGroupsNames(-1337);
-            Assert.fail();
-        }catch(InvalidInputException e){
-            Assert.assertEquals("User Id needs to be positive", e.getMessage());
-
-        }
+    @Test(expected = UnallowedSpaces.class)
+    public void createUserUnallowedSpacesUsernameNeg(){
+        long date = 742892400000L;
+        User createUserUnallowedSpacesUsername = new User(
+        1994, 
+        "Lyndon", 
+        "Sully", 
+        "emailmail@email.com", 
+        "evenbet terCoderNAna", 
+        "apasscode", 
+        "He's swole", 
+        date, 
+        ".PeeEnGee"
+        );
+        Mockito.when(mockDao.createNewUser(createUserUnallowedSpacesUsername)).thenThrow(new UnallowedSpaces("no spaces in username"));
+        mockService.createNewUserService(createUserUnallowedSpacesUsername);
     }
 
-    @Test
-    public void serviceGetGroupsNeg(){
-        try{
-            ArrayList<Integer> result = userService.getGroups(2000000);
+    @Test(expected = UnallowedSpaces.class)
+    public void createUserUnallowedSpacesPasscodeNeg(){
+        long date = 742892400000L;
+        User createUserUnallowedSpacesPasscode = new User(
+        1994, 
+        "Lyndon", 
+        "Sully", 
+        "emailmail@email.com", 
+        "evenbetterCoderNAna", 
+        "apas scode", 
+        "He's swole", 
+        date, 
+        ".PeeEnGee"
+        );
+        Mockito.when(mockDao.createNewUser(createUserUnallowedSpacesPasscode)).thenThrow(new UnallowedSpaces("no spaces in passcode"));
+        mockService.createNewUserService(createUserUnallowedSpacesPasscode);
+    }
 
-        }catch(InvalidInputException e){
-            Assert.assertEquals("User Id needs to be positive and in range", e.getMessage());
-        }
+    @Test(expected = BlankInputs.class)
+    public void createUserBlankInputsFNameNeg(){
+        long date = 742892400000L;
+        User createUserBlankInputs = new User(
+        1994, 
+        "", 
+        "Sully", 
+        "emai lmail@email.com", 
+        "evenbetterCoderNAna", 
+        "apasscode", 
+        "He's swole", 
+        date, 
+        ".PeeEnGee"
+        );
+        Mockito.when(mockDao.createNewUser(createUserBlankInputs)).thenThrow(new BlankInputs("please enter your first name"));
+        mockService.createNewUserService(createUserBlankInputs);
+    }
+
+    @Test(expected = BlankInputs.class)
+    public void createUserBlankInputsLNameNeg(){
+        long date = 742892400000L;
+        User createUserBlankInputsLName = new User(
+        1994, 
+        "Lyndon", 
+        "", 
+        "emai lmail@email.com", 
+        "evenbetterCoderNAna", 
+        "apasscode", 
+        "He's swole", 
+        date, 
+        ".PeeEnGee"
+        );
+        Mockito.when(mockDao.createNewUser(createUserBlankInputsLName)).thenThrow(new BlankInputs("please enter your last name"));
+        mockService.createNewUserService(createUserBlankInputsLName);
+    }
+
+    @Test(expected = BlankInputs.class)
+    public void createUserBlankInputsEmailNeg(){
+        long date = 742892400000L;
+        User createUserBlankInputsLName = new User(
+        1994, 
+        "Lyndon", 
+        "Sully", 
+        "", 
+        "evenbetterCoderNAna", 
+        "apasscode", 
+        "He's swole", 
+        date, 
+        ".PeeEnGee"
+        );
+        Mockito.when(mockDao.createNewUser(createUserBlankInputsLName)).thenThrow(new BlankInputs("please enter an email"));
+        mockService.createNewUserService(createUserBlankInputsLName);
+    }
+
+    @Test(expected = BlankInputs.class)
+    public void createUserBlankInputsUsernameNeg(){
+        long date = 742892400000L;
+        User createUserBlankInputsUsername = new User(
+        1994, 
+        "Lyndon", 
+        "Sully", 
+        "emailmail@email.com", 
+        "", 
+        "apasscode", 
+        "He's swole", 
+        date, 
+        ".PeeEnGee"
+        );
+        Mockito.when(mockDao.createNewUser(createUserBlankInputsUsername)).thenThrow(new BlankInputs("please enter a username"));
+        mockService.createNewUserService(createUserBlankInputsUsername);
+    }
+
+    @Test(expected = BlankInputs.class)
+    public void createUserBlankInputsPasscodeNeg(){
+        long date = 742892400000L;
+        User createUserBlankInputsPasscode = new User(
+        1994, 
+        "Lyndon", 
+        "Sully", 
+        "emailmail@email.com", 
+        "evenbetterCoderNAna", 
+        "", 
+        "He's swole", 
+        date, 
+        ".PeeEnGee"
+        );
+        Mockito.when(mockDao.createNewUser(createUserBlankInputsPasscode)).thenThrow(new BlankInputs("email already used"));
+        mockService.createNewUserService(createUserBlankInputsPasscode);
+    }
+
+    @Test(expected = BlankInputs.class)
+    public void createUserBlankInputsBirthdateNeg(){
+        // long date = 742892400000L;
+        User createUserBlankInputsBirthdate = new User(
+        1994, 
+        "Lyndon", 
+        "Sully", 
+        "emailmail@email.com", 
+        "evenbetterCoderNAna", 
+        "apasscode", 
+        "He's swole", 
+        0, 
+        ".PeeEnGee"
+        );
+        Mockito.when(mockDao.createNewUser(createUserBlankInputsBirthdate)).thenThrow(new BlankInputs("email already used"));
+        mockService.createNewUserService(createUserBlankInputsBirthdate);
+    }
+
+    @Test(expected = TooManyCharacters.class)
+    public void serviceRequestLoginExcessiveUserCharNeg(){
+        String username = "Loremipsumdolorsitamet,consectetueradipiscingelixxxxxxx";
+        String passcode = "apasscodeortwo";
+        Mockito.when(userService.loginService(username, passcode)).thenThrow(new TooManyCharacters("username contains too many characters"));
+        mockService.loginService(username, passcode);
+    }
+
+    @Test(expected = NoValuePasscode.class)
+    public void serviceRequestLoginNoValPassNeg(){
+        String username = "Lorem";
+        String passcode = "";
+        Mockito.when(userService.loginService(username, passcode)).thenThrow(new NoValuePasscode("username contains too many characters"));
+        mockService.loginService(username, passcode);
     }
     
+    @Test(expected = InvalidInputException.class)
+    public void serviceGetUserByIdNeg(){
+        int userId = -1337;
+        Mockito.when(userService.getUserByIdService(userId)).thenThrow(new InvalidInputException("Invalid Input: UserId Must Be A Non 0 Positive"));
+        mockService.getUserByIdService(userId);
+    }
 
+    @Test(expected = InvalidInputException.class)
+    public void serviceSearchForUserEmptyNameNeg(){
+        String noSuchUser = "Loremipsumdolorsitamet,consectetueradipiscingelixxxxxxx";
+        Mockito.when(userService.searchForUserService(noSuchUser)).thenThrow(new InvalidInputException("Invalid Input: Empty Username"));
+        mockService.searchForUserService(noSuchUser);
+    }
+    
+    @Test(expected = InvalidInputException.class)
+    public void serviceSearchForUserExcessiveCharNeg(){
+        String noSuchUser = "Loremipsumdolorsitamet,consectetueradipiscingelixxxxxxx";
+        Mockito.when(userService.searchForUserService(noSuchUser)).thenThrow(new InvalidInputException("Invalid Input: UserName Exceeds 50 Characters"));
+        mockService.searchForUserService(noSuchUser);
+    }
+
+    @Test(expected = InvalidInputException.class)
+    public void serviceGetGroupsNamesLeetNeg(){
+        int userId = -1337;
+        Mockito.when(userService.getGroupsNames(userId)).thenThrow(new InvalidInputException("User Id needs to be between 0-1000000"));
+        mockService.getGroupsNames(userId);
+    }
+
+    @Test(expected = InvalidInputException.class)
+    public void serviceGetGroupsLeetNeg(){
+        Mockito.when(userService.getGroups(-1337)).thenThrow(new InvalidInputException("User Id needs to be between 0-1000000"));
+        mockService.getGroups(-1337);
+    }
+    
+    @Test(expected = InvalidInputException.class)
+    public void serviceGetGroupsMaxNeg(){
+        Mockito.when(userService.getGroups(2000000)).thenThrow(new InvalidInputException("User Id needs to be between 0-1000000"));
+        mockService.getGroups(2000000);
+    }
+
+    @Test(expected = InvalidInputException.class)
+    public void serviceGetGroupsNotFoundNeg(){
+        Mockito.when(userService.getGroups(0)).thenThrow(new InvalidInputException("User not found"));
+        mockService.getGroups(0);
+    }
 }
