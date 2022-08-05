@@ -1,6 +1,7 @@
 package com.E2E.poms;
 
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,6 +24,7 @@ public class userChatPom {
 
     public void  msgInput(String message){
         this.msgInput.sendKeys(message);
+        
     }
 
     @FindBy(id = "imgInput")
@@ -32,12 +34,15 @@ public class userChatPom {
         this.imgInput.sendKeys(filepath);
     }
 
-    @FindBy(id = "send")
+    @FindBy(xpath = "//*[@id='send']")
     public WebElement sendButton;
 
     public void sendButton(){
+        // this.msgInput.sendKeys(Keys.ENTER);
         this.sendButton.click();
     }
     
+    @FindBy(xpath = "//*[@id='chat']/div/div")
+    public WebElement chatOutput;
 
 }
