@@ -4,7 +4,8 @@ import dev.com.thejungle.customexception.*;
 import dev.com.thejungle.dao.interfaces.UserDAOInt;
 import dev.com.thejungle.entity.User;
 import dev.com.thejungle.utility.ConnectionDB;
-
+import dev.com.thejungle.utility.HibernateUtil;
+//package dev.com.thejungle.utility;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -152,7 +153,7 @@ public class UserDAO implements UserDAOInt {
      */
     @Override
     public List<User> getAllUsers() {
-        try (Connection connection = ConnectionDB.createConnection()) {
+         try (Connection connection = ConnectionDB.createConnection()) {
             String sql = "select * from user_table";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
@@ -172,7 +173,17 @@ public class UserDAO implements UserDAOInt {
                 users.add(user);
             }
             return users;
-        } catch (SQLException e) {
+//            C:\project3\jungle-testing\The-Jungle_(1) (1)\JavaAPI\pom.xml
+            
+          // try () {
+          //  HibernateUtil.beginTransaction();
+          //  List<User> userList = HibernateUtil.getSession().createQuery("from User_table",User.class).getResultList();
+          //  HibernateUtil.endTransaction();
+          //  return userList;
+    
+            
+
+         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
