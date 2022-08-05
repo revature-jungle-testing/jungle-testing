@@ -18,7 +18,7 @@ public class userSearchPom {
     }
 
     //Call to web element ID's
-    @FindBy(id = "search-inputbar")
+    @FindBy(id = "searchInputBox")
     public WebElement searchInput;
 
     public void searchInput(String username){
@@ -31,6 +31,12 @@ public class userSearchPom {
     public void searchButton(){
         this.searchButton.click();
     }
+
+    @FindBy(xpath = "/html/body/div/div/div[3]/ul/li[1]/a")
+    public WebElement searchDrop;
+
+    @FindBy(xpath = "/html/body/div/div/div[3]/ul/li")
+    public WebElement noDrop;
 
 
 }
