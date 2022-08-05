@@ -45,8 +45,8 @@ public class UserTest {
 
     @Test
     public void requestLogin(){
-        String username = "bestCoderNA";
-        String passcode = "apasscode";
+        String username = "ApeEscape";
+        String passcode = "banana";
         User result = userDao.requestLogin(username, passcode);
         Assert.assertNotNull(result);
     }
