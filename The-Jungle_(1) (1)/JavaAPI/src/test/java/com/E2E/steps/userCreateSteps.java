@@ -43,7 +43,7 @@ public class userCreateSteps {
     }
     @When("the user enters a correct username")
     public void the_user_enters_a_correct_username() {
-        TestRunner.userCreatePom.signupUsername("tareka");
+        TestRunner.userCreatePom.signupUsername("tarekamann");
     }
     @When("the user enters a correct password")
     public void the_user_enters_a_correct_password() {
@@ -69,7 +69,7 @@ public class userCreateSteps {
     }
     @When("the user enters duplicate email")
     public void the_user_enters_duplicate_email() {
-        TestRunner.userCreatePom.signupEmail("iamdesperate@bing.com");
+        TestRunner.userCreatePom.signupEmail("email@email.com");
     }
     @Then("the user should receive an error over email")
     public void the_user_should_receive_an_error_over_email() {
