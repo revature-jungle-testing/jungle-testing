@@ -43,11 +43,28 @@ These are the various technologies we will be using in our project.
 ## Sprint Backlog
 These are all the user stories we need to complete a minimum viable product (MVP):
 
-Phase One:
+#### Phase One:
 
-Phase Two:
+As a user, I should be able to register a new account.
+
+As a system, I should reject bad new account creations from a duplicate email.
+
+As a system, I should reject bad new account creations from a blank username.
+
+As a user, I should be able to login so I can use the service.
+
+As a system, I should valid log-in credentials.
+
+As a user, I want to be able to search for a user by username.
+
+As a system, I don't want to allow incorrect usernames to be searched.
+
+
+#### Phase Two:
 
 As a user, I should be able to create a post with texts and images.
+
+As a system, I want to reject posts that have too much text.
 
 As a user, I should be able to comment on posts or other comments.
 
@@ -56,17 +73,57 @@ As a user, I should have a post feed that displays other user's posts.
 ## Product Backlog
 These are some stretch goals we can add in upon completing our MVP:
 
+As a user, I want to join a global chat room.
+
+As a user, I want to leave a chat room.
+
+As a user, I want to send a chat message.
+
+As a system, I want to reject chat messages with images that are too large.
+
+As a user, I want to view my previous chat history.
+
 As a user, I should be able to create and maintain a profile page that is visible to other users.
+
+As a user, I should be able to change my about me section.
+
+As a system, I want to validate a user has given their birthday when updating the profile.
 
 As a user, I should be able to react in various ways to another user's post.
 
 As a user, I should be able to create or join a group/team where there can be collaborative posts only for the group/team to view.
+
+As the system, I want to reject a blank create group form.
+
+As the system, I want to reject a blank group name.
+
+As the system, I want to reject a blank group description name.
+
+As a user, I want to join a group.
+
+As a user, I should be able to leave the group.
+
+As a user, I should be able to create a group post for the group I'm a part of.
+
+As a system, I want to reject group members from creating a blank group post.
+
+As a user, I want to delete my group post.
+
+As a user, I want to visit each group page on the Groups panel.
+
+As a user, I want to visit the groups page.
+
+As a user, I should be able to see who is in the group.
+
+As a user, I should be able to see the creator information.
+
 
 ## Requirement Documentation
 
 - Test Plan
     - This is our test plan
 - Test Case
+    - [Here is the link!](https://docs.google.com/spreadsheets/d/1NUFxAdIAid8_T_qdL-FS4KEk8WL7wdq7FtnhxBZH0rk/edit?usp=sharing)
 - Requirements Traceability Matrix
     - [This is the link to the Google Sheets](
 https://docs.google.com/spreadsheets/d/1_LSMeeyc0zRD3C_axRhEhj5vYdgETOQip0AXORZRBFk/edit?usp=sharing)
@@ -161,10 +218,22 @@ STRETCH:
     - Create database
     - Reconfigure JDBC to Hibernate
     - Upload Jungle zipped file onto our Github
-    - More to be updated
+    - Complete regression testing
+        - Unit tests
+        - E2E testing
+    - Set up presentation
 
 - Week of 8/8 - 8/12:
-    - To be updated
+    - Update documentation
+    - Convert JDBC to Hibernate
+    - Create post features
+        - Entity/DAO/DAO Interface/Service/Service Interface
+        - Repo tests
+        - Service tests
+        - E2E tests
+    - Update HTML/CSS to make more functional
 
 - Week of 8/15 - 8/18:
-    - To be updated
+    - Finish off phase 2 refactoring + new features
+    - Work on presentation
+    - Present at showcase on 8/18
