@@ -34,7 +34,7 @@ public class User {
     @Column(name = "user_about")
     private String userAbout;
     @Column(name = "user_birth_date")
-    private long userBirthdate;
+    private Date userBirthdate;
     @Column(name = "image_format")
     private String imageFormat;
 
@@ -51,7 +51,7 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.username = username;
-        this.userBirthdate = userBirthdate;
+        this.userBirthdate = new Date(userBirthdate);
     }
     public User(int userId, String firstName, String lastName, String email, String username, long userBirthdate) {
         this.userId = userId;
@@ -59,7 +59,7 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.username = username;
-        this.userBirthdate = userBirthdate;
+        this.userBirthdate = new Date(userBirthdate);
     }
 
     public User(int userId, String firstName, String lastName, String email, String username, String passcode,
@@ -71,7 +71,7 @@ public class User {
         this.username = username;
         this.passcode = passcode;
         this.userAbout = userAbout;
-        this.userBirthdate = userBirthdate;
+        this.userBirthdate = new Date(userBirthdate);;
         this.imageFormat = imageFormat;
     }
 
@@ -167,12 +167,12 @@ public class User {
         this.userAbout = userAbout;
     }
 
-    public long getUserBirthdate() {
+    public Date getUserBirthdate() {
         return userBirthdate;
     }
 
     public void setUserBirthdate(long userBirthdate) {
-        this.userBirthdate = userBirthdate;
+        this.userBirthdate = new Date(userBirthdate);
     }
 
     public String getImageFormat() {
