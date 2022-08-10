@@ -55,7 +55,7 @@
               <img class="x-icon" src="img/group-icon-2@2x.svg" />
             </a>
             </div>
-            <div class="logout-container">
+            <div onclick="clickLogout()" class="logout-container">
               <div class="logout valign-text-middle">Logout</div>
               <img class="x-icon" src="img/logout-icon@2x.svg" />
             </div>
@@ -188,4 +188,9 @@
   </body>
   <script src="../grouppage/allgroups.js"></script>
   <script src="../grouppage/usergroups.js"></script>
+  <script>
+    function clickLogout(){
+      window.location.href = "../loginpage/login.html";
+    }
+  </script>
 </html>

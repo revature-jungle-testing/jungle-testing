@@ -1,13 +1,13 @@
 package com.unitTest.repository;
 
 import org.junit.Assert;
-import org.junit.BeforeClass;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import dev.com.thejungle.dao.implementations.UserDAO;
 import dev.com.thejungle.dao.interfaces.UserDAOInt;
@@ -18,22 +18,20 @@ import dev.com.thejungle.customexception.InvalidInputException;
 
 public class UserTest {
 
-    public static UserDAOInt userDao;
+    public static UserDAOInt userDao = new UserDAO();
 
-    @BeforeClass
-    public static void setup(){
-        userDao = new UserDAO();
-    }
+ 
 
     @Test
     public void createNewUser(){
+        
         long date = 742892400000L;
         User createNewUser = new User(
             558, 
             "Herman", 
             "Fluitt", 
-            "thejerkstorecalled@hotmail.com", 
-            "bestCoderbaNAnanananana", 
+            "thejerkstorecall23ed@hotmail.com"+ Math.random()* 1000, 
+            "bestCoderbaNAnananananaa"+ Math.random()* 1000, 
             "apasscode", 
             "He's swole", 
             date,
@@ -45,8 +43,9 @@ public class UserTest {
 
     @Test
     public void requestLogin(){
-        String username = "ApeEscape";
-        String passcode = "banana";
+        String username = "username";
+        String passcode = "passcode";
+
         User result = userDao.requestLogin(username, passcode);
         Assert.assertNotNull(result);
     }

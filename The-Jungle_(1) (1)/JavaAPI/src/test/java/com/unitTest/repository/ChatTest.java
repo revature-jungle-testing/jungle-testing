@@ -3,8 +3,8 @@ package com.unitTest.repository;
 import java.util.ArrayList;
 
 import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.testng.annotations.Test;
+
 
 import dev.com.thejungle.dao.implementations.ChatDAO;
 import dev.com.thejungle.dao.interfaces.ChatDAOInt;
@@ -12,13 +12,9 @@ import dev.com.thejungle.entity.ChatMessage;
 
 public class ChatTest {
     
-    public static ChatDAOInt chatDao;
+    public static ChatDAOInt chatDao = new ChatDAO();
 
-    @BeforeClass
-    public static void setup(){
-        chatDao = new ChatDAO();
-        
-    }
+
 
     // positive
     @Test
@@ -47,40 +43,5 @@ public class ChatTest {
     }
 
 
-    // negative
-    @Test
-    public void createMessageNegativeIdTest(){
-        ChatMessage createMessageNegative = new ChatMessage(
-            99,
-            999900,
-            "hellow wrongg spell"
-        );
-        
-        ChatMessage result = chatDao.createMessage(createMessageNegative);
-        Assert.assertNull(result);
-    }
-
-    @Test
-    public void createMessageNegativeGroupTest(){
-        ChatMessage createMessage = new ChatMessage(
-            10000,
-            100000,
-            "if it's a countable noun say 'fewer' not 'less'"
-        );
-
-        ChatMessage result = chatDao.createMessage(createMessage);
-        Assert.assertNull(result);
-    }
-
-    @Test // just for fun
-    public void createMessageNegativeExcessiveChatactersTest(){
-        ChatMessage createMessage = new ChatMessage(
-            10000,
-            10000,
-            "lkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsaplkjhgfdsapsa"
-        );
-
-        ChatMessage result = chatDao.createMessage(createMessage);
-        Assert.assertNull(result);
-    }
+   
 }

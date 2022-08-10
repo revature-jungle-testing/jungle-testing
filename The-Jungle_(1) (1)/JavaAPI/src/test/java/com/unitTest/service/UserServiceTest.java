@@ -1,9 +1,10 @@
 package com.unitTest.service;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+
 import org.mockito.Mockito;
 import org.junit.Assert;
+import org.testng.annotations.Test;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,19 +26,12 @@ import dev.com.thejungle.service.interfaces.UserServiceInt;
 
 public class UserServiceTest {
 
-    public static UserDAO userDao;
-    public static UserServiceInt userService;
-    public static UserDAO mockDao;
-    public static UserServiceInt mockService;
+    public static UserDAO userDao = new UserDAO();
+    public static UserServiceInt userService = new UserService(userDao);
+    public static UserDAO mockDao = Mockito.mock(UserDAO.class);
+    public static UserServiceInt mockService = new UserService(mockDao);
     
 
-    @BeforeClass
-    public static void setup(){
-        userDao = new UserDAO();
-        userService = new UserService(userDao);
-        mockDao = Mockito.mock(UserDAO.class);
-        mockService = new UserService(mockDao);
-    }
     
     //POSITIVE
     @Test   // need to mock these and the serviceCreateNewUserNeg
@@ -47,8 +41,8 @@ public class UserServiceTest {
             1993, 
             "Herman", 
             "Fluitt", 
-            "jerk@hotmail.com", 
-            "bestCoderNA", 
+            "jerk@hotmail.com"+Math.random()* 1000, 
+            "bestCoderNA"+Math.random()* 1000, 
             "apasscode", 
             "He's swole", 
             date, 
@@ -97,7 +91,7 @@ public class UserServiceTest {
     }
 
     //NEGATIVES
-    @Test(expected = DuplicateEmail.class)
+    @Test(expectedExceptions = DuplicateEmail.class)
     public void createUserDupeEmailNeg(){
             long date = 742892400000L;
             User createUserDupeEmail = new User(
@@ -115,7 +109,7 @@ public class UserServiceTest {
             mockService.createNewUserService(createUserDupeEmail);
     }
     
-    @Test(expected = DuplicateUsername.class)
+    @Test(expectedExceptions = DuplicateUsername.class)
     public void createUserDupeUsernameNeg(){
             long date = 742892400000L;
             User createUserDupeUsername = new User(
@@ -152,7 +146,7 @@ public class UserServiceTest {
     //         mockService.createNewUserService(createUserUnallowedSpacesEmail);
     // }
 
-    @Test(expected = UnallowedSpaces.class)
+    @Test(expectedExceptions = UnallowedSpaces.class)
     public void createUserUnallowedSpacesUsernameNeg(){
         long date = 742892400000L;
         User createUserUnallowedSpacesUsername = new User(
@@ -170,7 +164,7 @@ public class UserServiceTest {
         mockService.createNewUserService(createUserUnallowedSpacesUsername);
     }
 
-    @Test(expected = UnallowedSpaces.class)
+    @Test(expectedExceptions = UnallowedSpaces.class)
     public void createUserUnallowedSpacesPasscodeNeg(){
         long date = 742892400000L;
         User createUserUnallowedSpacesPasscode = new User(
@@ -188,7 +182,7 @@ public class UserServiceTest {
         mockService.createNewUserService(createUserUnallowedSpacesPasscode);
     }
 
-    @Test(expected = BlankInputs.class)
+    @Test(expectedExceptions = BlankInputs.class)
     public void createUserBlankInputsFNameNeg(){
         long date = 742892400000L;
         User createUserBlankInputs = new User(
@@ -206,7 +200,7 @@ public class UserServiceTest {
         mockService.createNewUserService(createUserBlankInputs);
     }
 
-    @Test(expected = BlankInputs.class)
+    @Test(expectedExceptions = BlankInputs.class)
     public void createUserBlankInputsLNameNeg(){
         long date = 742892400000L;
         User createUserBlankInputsLName = new User(
@@ -224,7 +218,7 @@ public class UserServiceTest {
         mockService.createNewUserService(createUserBlankInputsLName);
     }
 
-    @Test(expected = BlankInputs.class)
+    @Test(expectedExceptions = BlankInputs.class)
     public void createUserBlankInputsEmailNeg(){
         long date = 742892400000L;
         User createUserBlankInputsLName = new User(
@@ -242,7 +236,7 @@ public class UserServiceTest {
         mockService.createNewUserService(createUserBlankInputsLName);
     }
 
-    @Test(expected = BlankInputs.class)
+    @Test(expectedExceptions = BlankInputs.class)
     public void createUserBlankInputsUsernameNeg(){
         long date = 742892400000L;
         User createUserBlankInputsUsername = new User(
@@ -260,7 +254,7 @@ public class UserServiceTest {
         mockService.createNewUserService(createUserBlankInputsUsername);
     }
 
-    @Test(expected = BlankInputs.class)
+    @Test(expectedExceptions = BlankInputs.class)
     public void createUserBlankInputsPasscodeNeg(){
         long date = 742892400000L;
         User createUserBlankInputsPasscode = new User(
@@ -278,7 +272,7 @@ public class UserServiceTest {
         mockService.createNewUserService(createUserBlankInputsPasscode);
     }
 
-    @Test(expected = BlankInputs.class)
+    @Test(expectedExceptions = BlankInputs.class)
     public void createUserBlankInputsBirthdateNeg(){
         // long date = 742892400000L;
         User createUserBlankInputsBirthdate = new User(
@@ -296,7 +290,7 @@ public class UserServiceTest {
         mockService.createNewUserService(createUserBlankInputsBirthdate);
     }
 
-    @Test(expected = TooManyCharacters.class)
+    @Test(expectedExceptions = TooManyCharacters.class)
     public void serviceRequestLoginExcessiveUserCharNeg(){
         String username = "Loremipsumdolorsitamet,consectetueradipiscingelixxxxxxx";
         String passcode = "apasscodeortwo";
@@ -304,7 +298,7 @@ public class UserServiceTest {
         mockService.loginService(username, passcode);
     }
 
-    @Test(expected = NoValuePasscode.class)
+    @Test(expectedExceptions = NoValuePasscode.class)
     public void serviceRequestLoginNoValPassNeg(){
         String username = "Lorem";
         String passcode = "";
@@ -312,47 +306,47 @@ public class UserServiceTest {
         mockService.loginService(username, passcode);
     }
     
-    @Test(expected = InvalidInputException.class)
+    @Test(expectedExceptions = InvalidInputException.class)
     public void serviceGetUserByIdNeg(){
         int userId = -1337;
         Mockito.when(userService.getUserByIdService(userId)).thenThrow(new InvalidInputException("Invalid Input: UserId Must Be A Non 0 Positive"));
         mockService.getUserByIdService(userId);
     }
 
-    @Test(expected = InvalidInputException.class)
+    @Test(expectedExceptions = InvalidInputException.class)
     public void serviceSearchForUserEmptyNameNeg(){
         String noSuchUser = "Loremipsumdolorsitamet,consectetueradipiscingelixxxxxxx";
         Mockito.when(userService.searchForUserService(noSuchUser)).thenThrow(new InvalidInputException("Invalid Input: Empty Username"));
         mockService.searchForUserService(noSuchUser);
     }
     
-    @Test(expected = InvalidInputException.class)
+    @Test(expectedExceptions = InvalidInputException.class)
     public void serviceSearchForUserExcessiveCharNeg(){
         String noSuchUser = "Loremipsumdolorsitamet,consectetueradipiscingelixxxxxxx";
         Mockito.when(userService.searchForUserService(noSuchUser)).thenThrow(new InvalidInputException("Invalid Input: UserName Exceeds 50 Characters"));
         mockService.searchForUserService(noSuchUser);
     }
 
-    @Test(expected = InvalidInputException.class)
+    @Test(expectedExceptions = InvalidInputException.class)
     public void serviceGetGroupsNamesLeetNeg(){
         int userId = -1337;
         Mockito.when(userService.getGroupsNames(userId)).thenThrow(new InvalidInputException("User Id needs to be between 0-1000000"));
         mockService.getGroupsNames(userId);
     }
 
-    @Test(expected = InvalidInputException.class)
+    @Test(expectedExceptions = InvalidInputException.class)
     public void serviceGetGroupsLeetNeg(){
         Mockito.when(userService.getGroups(-1337)).thenThrow(new InvalidInputException("User Id needs to be between 0-1000000"));
         mockService.getGroups(-1337);
     }
     
-    @Test(expected = InvalidInputException.class)
+    @Test(expectedExceptions = InvalidInputException.class)
     public void serviceGetGroupsMaxNeg(){
         Mockito.when(userService.getGroups(2000000)).thenThrow(new InvalidInputException("User Id needs to be between 0-1000000"));
         mockService.getGroups(2000000);
     }
 
-    @Test(expected = InvalidInputException.class)
+    @Test(expectedExceptions = InvalidInputException.class)
     public void serviceGetGroupsNotFoundNeg(){
         Mockito.when(userService.getGroups(0)).thenThrow(new InvalidInputException("User not found"));
         mockService.getGroups(0);
