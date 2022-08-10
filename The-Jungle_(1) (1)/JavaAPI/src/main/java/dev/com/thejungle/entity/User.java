@@ -1,19 +1,43 @@
 package dev.com.thejungle.entity;
 
+
+
 import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.util.Date;
+
+@Entity
+@Table(name = "user_table")
 
 public class User {
 
     // PRIVATE VARIABLES
-    private int userId;
-    private String firstName;
-    private String lastName;
+    @Id
+    @GeneratedValue
+    @Column(name = "user_id")
+     private int userId;
+     @Column(name = "first_name")
+     private String firstName;
+     @Column(name = "last_name")
+     private String lastName;
+     @Column(name = "email")
     private String email;
+    @Column(name = "username")
     private String username;
+    @Column(name = "passcode")
     private String passcode;
+    @Column(name = "user_about")
     private String userAbout;
-    private long userBirthdate;
+    @Column(name = "user_birth_date")
+    private Date userBirthdate;
+    @Column(name = "image_format")
     private String imageFormat;
+
 
     // CONSTRUCTORS
     public User(){}
@@ -22,14 +46,20 @@ public class User {
         this.username = username;
         this.passcode = passcode;
     }
-
+    public User(String firstName, String lastName, String email, String username, long userBirthdate) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.username = username;
+        this.userBirthdate = new Date(userBirthdate);
+    }
     public User(int userId, String firstName, String lastName, String email, String username, long userBirthdate) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
-        this.userBirthdate = userBirthdate;
+        this.userBirthdate = new Date(userBirthdate);
     }
 
     public User(int userId, String firstName, String lastName, String email, String username, String passcode,
@@ -41,7 +71,7 @@ public class User {
         this.username = username;
         this.passcode = passcode;
         this.userAbout = userAbout;
-        this.userBirthdate = userBirthdate;
+        this.userBirthdate = new Date(userBirthdate);;
         this.imageFormat = imageFormat;
     }
 
@@ -137,12 +167,12 @@ public class User {
         this.userAbout = userAbout;
     }
 
-    public long getUserBirthdate() {
+    public Date getUserBirthdate() {
         return userBirthdate;
     }
 
     public void setUserBirthdate(long userBirthdate) {
-        this.userBirthdate = userBirthdate;
+        this.userBirthdate = new Date(userBirthdate);
     }
 
     public String getImageFormat() {

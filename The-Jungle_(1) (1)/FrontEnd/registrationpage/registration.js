@@ -107,7 +107,7 @@ function validateBirthdate() {
     } else {
       invalidIcon[3].style.display = "none";
       invalidMessage[3].textContent = "";
-      let userBDay = new Date(signupBirthdate.value).getTime();
+      let userBDay = new Date(signupBirthdate.value).toLocaleDateString('fr-CA');
       jsonUserObject.userBirthdate = userBDay;
       validateCounter = validateCounter + 1;
       if (validateCounter > 5) {
@@ -179,7 +179,6 @@ async function registerUser(event) {
     headers: { "Content-Type": "application/json" },
     method: ["POST"],
     body: JSON.stringify({
-      userId: 0,
       firstName: userFirstName,
       lastName: userLastName,
       email: userEmail,

@@ -4,6 +4,7 @@ import dev.com.thejungle.customexception.*;
 import dev.com.thejungle.dao.interfaces.UserDAOInt;
 import dev.com.thejungle.entity.User;
 import dev.com.thejungle.utility.ConnectionDB;
+import dev.com.thejungle.utility.HibernateUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -21,39 +22,11 @@ public class UserDAO implements UserDAOInt {
      */
     @Override
     public User createNewUser(User user) {
-        try (Connection connection = ConnectionDB.createConnection()) {
-            String sql = "insert into user_table values(default, ?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, user.getFirstName());
-            preparedStatement.setString(2, user.getLastName());
-            preparedStatement.setString(3, user.getEmail());
-            preparedStatement.setString(4, user.getUsername());
-            preparedStatement.setString(5, user.getPasscode());
-            preparedStatement.setString(6, user.getUserAbout());
-            preparedStatement.setDate(7, new Date(user.getUserBirthdate()));
-            preparedStatement.setString(8, user.getImageFormat());
-            preparedStatement.execute();
-            ResultSet rs = preparedStatement.getGeneratedKeys();
-            rs.next();
-            user.setUserId(rs.getInt("user_id"));
-            return new User(
-                    rs.getInt("user_id"),
-                    rs.getString("first_name"),
-                    rs.getString("last_name"),
-                    rs.getString("email"),
-                    rs.getString("username"),
-                    rs.getDate("user_birth_date").getTime()
-            );
-        } catch (SQLException q) {
-            if (q.getMessage().contains("username")) {
-                throw new DuplicateUsername("This username is already taken");
-            } else if (q.getMessage().contains("email")) {
-                throw new DuplicateEmail("Email is already in use");
-            } else {
-                q.printStackTrace();
-                return null;
-            }
-        }
+        HibernateUtil.beginTransaction();
+        HibernateUtil.getSession().save(user);
+        HibernateUtil.endTransaction();
+        return user;
+
     }
 
     @Override
@@ -223,5 +196,7 @@ public class UserDAO implements UserDAOInt {
             return null;
         }
     }
+
+
 
 }

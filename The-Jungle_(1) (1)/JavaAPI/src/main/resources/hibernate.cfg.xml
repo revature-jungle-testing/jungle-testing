@@ -26,5 +26,6 @@
         <mapping class="dev.com.thejungle.entity.ChatMessage"/> 
         <mapping class="dev.com.thejungle.entity.Post"/>
         <mapping class="dev.com.thejungle.entity.PostPicture"/>  
+        <mapping class="dev.com.thejungle.entity.Comment"/> 
     </session-factory>
 </hibernate-configuration>

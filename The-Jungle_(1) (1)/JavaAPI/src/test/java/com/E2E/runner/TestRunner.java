@@ -11,6 +11,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.E2E.poms.postCreatePom;
+import com.E2E.poms.postViewPom;
+import com.E2E.poms.postCommentPom;
 import com.E2E.poms.userChatPom;
 import com.E2E.poms.userCreatePom;
 import com.E2E.poms.userGlobalChat;
@@ -38,6 +41,10 @@ public class TestRunner {
     public static userSearchPom userSearchPom;
     public static userLogoutPom userLogoutPom;
 
+    public static postCommentPom postCommentPom;
+    public static postCreatePom postCreatePom;
+    public static postViewPom postViewPom;
+
 
 
     @BeforeClass
@@ -54,6 +61,10 @@ public class TestRunner {
         userGlobalChat = new userGlobalChat(driver);
         userChatPom = new userChatPom(driver);
         userSearchPom = new userSearchPom(driver);
+
+        postCommentPom = new postCommentPom(driver);
+        postCreatePom = new postCreatePom(driver);
+        postViewPom = new postViewPom(driver);
 
     }
     @AfterClass

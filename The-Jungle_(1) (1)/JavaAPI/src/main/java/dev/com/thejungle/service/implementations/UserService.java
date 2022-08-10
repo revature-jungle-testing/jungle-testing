@@ -23,7 +23,7 @@ public class UserService implements UserServiceInt {
         } else if (user.getPasscode().matches(".*\\s+.*")) {
             throw new UnallowedSpaces("No spaces allowed in username or password");
         } else if (user.getUsername().isEmpty() || user.getFirstName().isEmpty() || user.getLastName().isEmpty() ||
-                user.getPasscode().isEmpty() || user.getEmail().isEmpty() || user.getUserBirthdate() == 0) {
+                user.getPasscode().isEmpty() || user.getEmail().isEmpty()) {
             throw new BlankInputs("Please fill in the blanks");
         } else {
             return this.userDAO.createNewUser(user);

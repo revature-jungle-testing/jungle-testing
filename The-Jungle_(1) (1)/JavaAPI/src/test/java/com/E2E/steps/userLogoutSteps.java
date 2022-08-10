@@ -1,7 +1,6 @@
 package com.E2E.steps;
 
 import org.junit.Assert;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import com.E2E.runner.TestRunner;
@@ -11,8 +10,6 @@ import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
 
 public class userLogoutSteps {
-
-    private WebDriver driver;
     
     @Given("user is on the home-page")
     public void user_is_on_the_home_page() {
