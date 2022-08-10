@@ -1,14 +1,8 @@
 package com.E2E.steps;
 
-import java.time.Duration;
-import java.util.concurrent.TimeUnit;
-
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.E2E.runner.TestRunner;
 
@@ -17,8 +11,6 @@ import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
 
 public class userCreateSteps {
-
-    private WebDriver driver;
     
     //Posi Steps
     @Given("the user is on the sign up page")
