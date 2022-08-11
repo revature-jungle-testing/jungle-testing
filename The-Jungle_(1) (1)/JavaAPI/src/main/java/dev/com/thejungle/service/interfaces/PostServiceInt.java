@@ -10,7 +10,7 @@ public interface PostServiceInt {
     Post createPostService(Post post);
 
     // get all posts
-    List<Post> getAllPostsService();
+    List<Post> getAllPostsService(int UserId);
 
     // check length of post
     boolean checkTextLength(Post textToCheck);

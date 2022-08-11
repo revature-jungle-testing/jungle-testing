@@ -1,4 +1,4 @@
-let userId = 104; // temporary 
+let userId = 10000; // temporary 
 let postId = 273; // temporary
 
 // this is just a proof of concept and does not contain styling elements of the finished code
@@ -28,7 +28,7 @@ async function createPost(){
     let postText = document.getElementById("postText");
     console.log(postText.value)
     let postJson = JSON.stringify({"user_id":userId, "post_text": postText.value, "image_format": "false"});
-    let url = "http://127.0.0.1:5000/post"
+    let url = "http://127.0.0.1:8080/post"
     let thePost = await fetch(url, {
         method:"POST",
         headers:{'Content-Type': 'application/json'}, 
@@ -52,7 +52,7 @@ async function createPostWithImage() {
       if (base64gif.length < 1_000_000 && base64gif.startsWith("data:image/")){
         let postText = document.getElementById("postText");
         let postJson = JSON.stringify({"user_id":userId, "post_text": postText.value, "image_format": "true"});
-        let url = "http://127.0.0.1:5000/post"
+        let url = "http://127.0.0.1:8080/post"
         
         //Inserts the post into the post table
         let thePost = await fetch(url, {
@@ -63,7 +63,7 @@ async function createPostWithImage() {
         //Inserts the image into the post_image_table
         console.log(thePost["post_id"]);
         let response = await fetch(
-            "http://127.0.0.1:5000/post/image/" + thePost["post_id"], {
+            "http://127.0.0.1:8080/post/image/" + thePost["post_id"], {
               method: "POST",
               headers: {"Content-Type": "application/json"},
               body: String(base64gif)
@@ -90,20 +90,53 @@ async function createPostWithImage() {
 
 
   async function getPost() {
-    let response = await fetch("http://127.0.0.1:5000/user/post/" + userId, {
+    let response = await fetch("http://127.0.0.1:8080/user/post/" + userId, {
       method: "GET",
       mode: "cors",
     });
     if (response.status === 200) {
       let body = await response.json();
+      console.log(body);
       populateData(body);
     }
   }
   
-  async function populateData(responseBody) {
+   function populateData(responseBody) {
     const allpost = document.getElementById("post column");
     for (let post of responseBody) {
       let postBox = document.createElement('div');
+      postBox.innerHTML = 
+      `<div class = "post`+ post.post_id +`" id = "post`+ post.post_id + `" style=">
+      <div class="flex-row">
+        <div class="overlap-group2">
+          <div class="username-1 valign-text-middle poppins-bold-cape-cod-20px">Username</div>
+        </div>
+        <input type="image" class="three-dots-icon-1" src="img/bi-three-dots@2x.svg" id="deletePost${post.post_id}" onclick="deletePost(${post.post_id})"/>
+      </div>
+      <div class="overlap-group-1">
+        <div class="feed-text-2 valign-text-middle poppins-medium-black-18px">`+ post.postText + `</div>
+      </div>
+      <div class="icon-container">
+      <input type="image" class="heart-icon" src="img/heart-icon@2x.svg" />
+        <p>` + post.likes + `</p>
+        <input type="image" class="chat-bubble-icon" src="img/chat-bubble-icon@2x.svg"/>
+        <img class="share-icon" src="img/share-icon@2x.svg" />
+    </div>
+    
+        
+      </div>`
+      /*
+      <div class="icon-container">
+        <input type="image" class="heart-icon" src="img/heart-icon@2x.svg" />
+        <p>` + post.likes + `</p>
+        <input type="image" class="chat-bubble-icon" src="img/chat-bubble-icon@2x.svg"/>
+        <img class="share-icon" src="img/share-icon@2x.svg" />
+      </div>
+      <div class="overlap-group-1">
+        <div class="feed-text-2 valign-text-middle poppins-medium-black-18px">`+ post.post_text + `</div>
+      </div>
+      */
+      allpost.appendChild(postBox);
       // postBox.innerHTML = `
       // <div class="overlap-group1" id="newPost${post.post_id}">
       // <p> ` + post.post_id + `</p>
@@ -115,6 +148,7 @@ async function createPostWithImage() {
       // </div>`
       
       //add the poster image
+      /*
       let url = "http://127.0.0.1:5000/user/image/" + post.user_id;
       let response = await fetch(url);
       let user_image_text;
@@ -174,16 +208,15 @@ async function createPostWithImage() {
         <div class="feed-text-2 valign-text-middle poppins-medium-black-18px">`+ post.post_text + `</div>
       </div>
     </div>`
+    */
+      }
       }
   
-      allpost.appendChild(postBox)
-    }
-  }
   
   getPost()
 
   async function deletePost(post_id) {
-    let deleteResponse = await fetch("http://127.0.0.1:5000/group_post/" + post_id, {
+    let deleteResponse = await fetch("http://127.0.0.1:8080/group_post/" + post_id, {
       method: "DELETE"
     })
     console.log(deleteResponse)

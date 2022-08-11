@@ -33,8 +33,8 @@ public class AppController {
     }
 
     public void createPostRoutes() {
-        app.get("/posts", postController.getAllPosts);
-        app.get("/post/create", postController.createNewPost);
+        app.get("/user/post/{userId}", postController.getAllPosts);
+        app.post("/post", postController.createNewPost);
     }
 }
 

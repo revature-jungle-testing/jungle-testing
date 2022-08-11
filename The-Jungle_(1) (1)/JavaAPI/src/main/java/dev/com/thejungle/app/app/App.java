@@ -2,10 +2,13 @@ package dev.com.thejungle.app.app;
 
 import dev.com.thejungle.app.appcontroller.appcontroller.AppController;
 import dev.com.thejungle.app.appcontroller.controllers.ChatController;
+import dev.com.thejungle.app.appcontroller.controllers.PostController;
 import dev.com.thejungle.app.appcontroller.controllers.UserController;
 import dev.com.thejungle.dao.implementations.ChatDAO;
+import dev.com.thejungle.dao.implementations.PostDAO;
 import dev.com.thejungle.dao.implementations.UserDAO;
 import dev.com.thejungle.service.implementations.ChatService;
+import dev.com.thejungle.service.implementations.PostService;
 import dev.com.thejungle.service.implementations.UserService;
 import io.javalin.Javalin;
 
@@ -16,6 +19,10 @@ public class App {
             config.enableCorsForAllOrigins();
             config.enableDevLogging();
         });
+
+        PostDAO postDAO = new PostDAO();
+        PostService postService = new PostService(postDAO);
+        PostController postController = new PostController(postService);
 
         // Chat Controller
         ChatDAO chatDAO = new ChatDAO();
@@ -28,10 +35,11 @@ public class App {
         UserController userController = new UserController(userService);
 
         // App Controller
-        AppController appController = new AppController(app, chatController, userController);
+        AppController appController = new AppController(app, chatController, userController, postController);
 
         appController.createChatRoutes();
         appController.createUserRoutes();
+        appController.createPostRoutes();
 
         app.start();
     }
