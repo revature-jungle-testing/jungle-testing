@@ -13,5 +13,5 @@ public interface PostPictureInt {
 
     // get method
 
-    List<PostPicture> getAllPicture();
+    List<PostPicture> getAllPictures();
 }
