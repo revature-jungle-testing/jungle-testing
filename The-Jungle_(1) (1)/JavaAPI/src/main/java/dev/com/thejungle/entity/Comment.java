@@ -1,6 +1,8 @@
 package dev.com.thejungle.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -10,6 +12,8 @@ public class Comment {
 
     // Private Fields
 
+    @Id
+    @GeneratedValue
     private int comment_id;
     private int post_id;
     private int user_id;

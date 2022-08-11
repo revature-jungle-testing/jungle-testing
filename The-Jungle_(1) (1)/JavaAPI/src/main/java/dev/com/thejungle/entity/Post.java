@@ -17,13 +17,10 @@ public class Post {
 private int postId;
 @Column(name = "user_id")
 private int userId;
-@Column(name= "group_id")
-private int groupId;
 @Column(name= "post_text")
 private String postText;
 @Column(name= "image_format")
 private String imageFormat;
-// private int likes;
 
 
 // Constructors
@@ -31,29 +28,24 @@ private String imageFormat;
 public Post() {}
 
 
-public Post(String postText, String imageFormat, int likes) {
+public Post(String postText, String imageFormat) {
     this.postText = postText;
     this.imageFormat = imageFormat;
-    // this.likes = likes;
 }
 
 
-public Post(int userId, int groupId, String postText, String imageFormat, int likes) {
+public Post(int userId, String postText, String imageFormat) {
     this.userId = userId;
-    this.groupId = groupId;
     this.postText = postText;
     this.imageFormat = imageFormat;
-    // this.likes = likes;
 }
 
 
-public Post(int postId, int userId, int groupId, String postText, String imageFormat, int likes) {
+public Post(int postId, int userId, String postText, String imageFormat) {
     this.postId = postId;
     this.userId = userId;
-    this.groupId = groupId;
     this.postText = postText;
     this.imageFormat = imageFormat;
-//     this.likes = likes;
 }
 
 // Getters & Setters
@@ -78,16 +70,6 @@ public void setUserId(int userId) {
 }
 
 
-public int getGroupId() {
-    return groupId;
-}
-
-
-public void setGroupId(int groupId) {
-    this.groupId = groupId;
-}
-
-
 public String getPostText() {
     return postText;
 }
@@ -108,19 +90,9 @@ public void setImageFormat(String imageFormat) {
 }
 
 
-
-// public int getLikes() {
-//     return likes;
-// }
-
-
-// public void setLikes(int likes) {
-//     this.likes = likes;
-// }
-
 @Override
 public String toString() {
-    return "Post [groupId=" + groupId + ", imageFormat=" + imageFormat + ", postId=" + postId + ", postText=" + postText
+    return "Post [imageFormat=" + imageFormat + ", postId=" + postId + ", postText=" + postText
             + ", userId=" + userId + "]";
 }
 
