@@ -31,29 +31,10 @@ public class UserDAO implements UserDAOInt {
 
     @Override
     public User requestLogin(String username, String password) {
-        try (Connection connection = ConnectionDB.createConnection()) {
-            String sql = "select user_id, first_name, last_name, email, username, user_birth_date" +
-                    " from user_table" +
-                    " where username = ? and passcode = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                return new User(
-                        resultSet.getInt("user_id"),
-                        resultSet.getString("first_name"),
-                        resultSet.getString("last_name"),
-                        resultSet.getString("email"),
-                        resultSet.getString("username"),
-                        resultSet.getDate("user_birth_date").getTime()
-                );
-            } else {
-                throw new UsernameOrPasscodeException("User Not Found");
-            }
-        } catch (SQLException e) {
-            return null;
-        }
+        HibernateUtil.beginTransaction();
+        User returnUser = (User) HibernateUtil.getSession().createQuery("fRoM dev.com.thejungle.entity.User where username = :username and passcode = :passcode", User.class).setParameter("username", username).setParameter("passcode", password).uniqueResult();
+        HibernateUtil.endTransaction();
+        return returnUser; 
     }
 
     /**
@@ -63,28 +44,10 @@ public class UserDAO implements UserDAOInt {
      */
     @Override
     public User getUserById(int userId) {
-        try (Connection connection = ConnectionDB.createConnection()) {
-            String sql = "select user_id, first_name, last_name, email, username, user_birth_date" +
-                    " from user_table" +
-                    " where user_id = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, userId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                return new User(
-                        resultSet.getInt("user_id"),
-                        resultSet.getString("first_name"),
-                        resultSet.getString("last_name"),
-                        resultSet.getString("email"),
-                        resultSet.getString("username"),
-                        resultSet.getDate("user_birth_date").getTime()
-                );
-            } else {
-                throw new UserNotFound("User Not Found");
-            }
-        } catch (SQLException e) {
-            return null;
-        }
+        HibernateUtil.beginTransaction();
+        User returnUser = (User) HibernateUtil.getSession().createQuery("from User where userId = :UserId" , User.class).setParameter("UserId", userId).uniqueResult();
+        HibernateUtil.endTransaction();
+        return returnUser; 
     }
 
     /**
@@ -94,29 +57,10 @@ public class UserDAO implements UserDAOInt {
      */
     @Override
     public ArrayList<User> searchForUser(String username) {
-        try (Connection connection = ConnectionDB.createConnection()) {
-            String sql = "select * from user_table where username ilike ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, "%" + username + "%");
-            ResultSet resultSet = preparedStatement.executeQuery();
-            ArrayList<User> users = new ArrayList<>();
-            while (resultSet.next()) {
-                users.add(
-                        new User(
-                                resultSet.getInt("user_Id"),
-                                resultSet.getString("first_name"),
-                                resultSet.getString("last_name"),
-                                resultSet.getString("email"),
-                                resultSet.getString("username"),
-                                resultSet.getDate("user_birth_date").getTime()
-                        )
-                );
-            }
-            return users;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+        HibernateUtil.beginTransaction();
+        ArrayList<User> returnUsers = (ArrayList<User>) HibernateUtil.getSession().createQuery("from User where username = :username" , User.class).setParameter("username", username).list();
+        HibernateUtil.endTransaction();
+        return returnUsers; 
     }
 
     /**
@@ -125,37 +69,17 @@ public class UserDAO implements UserDAOInt {
      */
     @Override
     public List<User> getAllUsers() {
-        try (Connection connection = ConnectionDB.createConnection()) {
-            String sql = "select * from user_table";
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            List<User> users = new ArrayList<>();
-            while (resultSet.next()) {
-                User user = new User(
-                        resultSet.getInt("user_Id"),
-                        resultSet.getString("first_name"),
-                        resultSet.getString("last_name"),
-                        resultSet.getString("email"),
-                        resultSet.getString("username"),
-                        resultSet.getString("passcode"),
-                        resultSet.getString("user_about"),
-                        resultSet.getDate("user_birth_date").getTime(),
-                        resultSet.getString("image_format")
-                );
-                users.add(user);
-            }
-            return users;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+        HibernateUtil.beginTransaction();
+        List<User> returnUsers = HibernateUtil.getSession().createQuery("from User", User.class).list();
+        HibernateUtil.endTransaction();
+        return returnUsers; 
     }
     @Override
     public HashMap<Integer, String> getGroupsNames(int userId) {
         try (Connection connection = ConnectionDB.createConnection()) {
-            String sql = "select gmjt.group_id, gt.group_name from group_member_junction_table gmjt" +
-                    " inner join group_table gt ON gmjt.group_id = gt.group_id" +
-                    " where gmjt.user_id = ?";
+            String sql = "select group_id, group_name from group_member_junction_table " +
+                    " inner join group_table ON group_id = group_id" +
+                    " where user_id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -177,24 +101,10 @@ public class UserDAO implements UserDAOInt {
      */
     @Override
     public ArrayList<Integer> getGroups(int userId) {
-        try (Connection connection = ConnectionDB.createConnection()) {
-            String sql = "select group_id from group_member_junction_table where user_id = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, userId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            ArrayList<Integer> groupIds = new ArrayList<>();
-            if (!resultSet.isBeforeFirst()){
-                throw new InvalidInputException();
-            } else {
-                while (resultSet.next()) {
-                    groupIds.add(resultSet.getInt("group_id"));
-                }
-                return groupIds;
-            }
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
-            return null;
-        }
+        HibernateUtil.beginTransaction();
+        ArrayList<Integer> returnGroups = (ArrayList<Integer>) HibernateUtil.getSession().createSQLQuery("select group_id from group_member_junction_table where user_id =" + userId ).list();
+        HibernateUtil.endTransaction();
+        return returnGroups; 
     }
 
 
