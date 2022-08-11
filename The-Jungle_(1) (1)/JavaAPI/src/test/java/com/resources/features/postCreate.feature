@@ -1,4 +1,4 @@
-Feature: Users should be able to create a post
+Feature: Users should be able to create a post with text and images
 
     Scenario: As a user I want to create a post
         Given the user is on their dashboard page
