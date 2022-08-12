@@ -27,9 +27,9 @@ public class PostPictureDAO implements PostPictureInt{
 
     // Get
     @Override
-    public List<PostPicture> getAllPictures() {
+    public PostPicture getAllPictures(int postID) {
         HibernateUtil.beginTransaction();
-        List<PostPicture> requestList = HibernateUtil.getSession().createQuery("from PostPicture", PostPicture.class).getResultList();
+        PostPicture requestList = HibernateUtil.getSession().createQuery("from PostPicture where postId = :post_ID", PostPicture.class).setParameter("post_ID", postID).uniqueResult();
         HibernateUtil.endTransaction();
         return requestList;
     }
