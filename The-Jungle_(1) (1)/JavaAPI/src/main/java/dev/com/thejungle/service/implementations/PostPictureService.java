@@ -1,5 +1,6 @@
 package dev.com.thejungle.service.implementations;
 
+import java.util.Base64;
 import java.util.List;
 
 import dev.com.thejungle.dao.implementations.PostPictureDAO;
@@ -29,16 +30,26 @@ public class PostPictureService implements PostPictureServiceInt{
     // getting all posted pictures
 
         @Override
-        public List<PostPicture> getAllPicturesService() {
+        public PostPicture getAllPicturesService(int postID) {
             // TODO Auto-generated method stub
-            return null;
+            return postPictureDAO.getAllPictures(postID);
         }
 
 
         @Override
         public boolean checkImgSize(PostPicture imageToCheck) {
             // TODO Auto-generated method stub
-            return false;
+            byte[] encoded = Base64.getMimeEncoder().encode(imageToCheck.getPicture());
+
+            String printStr = "data:image/jpeg;base64, ";
+            String encodedStr = new String(encoded);
+            String imageStr = printStr+encodedStr;
+            if(imageStr.length() > 1E6){
+                return false;
+            }else{
+                return true;
+            }
+            
         }
     
 }

@@ -17,8 +17,8 @@ public class PostDAO implements PostInt {
         HibernateUtil.endTransaction();
         return createPost;
     }
-
-// Get Post
+    
+// Get Post by ID
 
     @Override
     public List<Post> getAllPosts(int UserId) {
@@ -28,5 +28,6 @@ public class PostDAO implements PostInt {
         return requestList;
         
     }
+
     
 }

@@ -43,5 +43,21 @@ public class PostPictureController {
             ctx.status(400);
         }
     };
+    //////
+    public Handler getPostID = ctx -> {
+        int postId = Integer.parseInt(ctx.pathParam("postId"));
+
+            PostPicture result = postPictureService.getAllPicturesService(postId);
+            byte[] encoded = Base64.getMimeEncoder().encode(result.getPicture());
+
+            String printStr = "data:image/jpeg;base64, ";
+            String encodedStr = new String(encoded);
+            String imageStr = printStr+encodedStr;
+            
+            ctx.result(imageStr);
+            ctx.status(200);
+            
+    };
+
     
 }

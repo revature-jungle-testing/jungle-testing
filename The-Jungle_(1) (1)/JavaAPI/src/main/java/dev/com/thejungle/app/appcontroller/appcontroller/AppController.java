@@ -42,6 +42,7 @@ public class AppController {
 
     public void createPostPicRoutes(){
         app.post("/post/image/{postId}", postPictureController.createNewPost);
+        app.get("/post/image/{postId}",postPictureController.getPostID);
     }
 }
 
