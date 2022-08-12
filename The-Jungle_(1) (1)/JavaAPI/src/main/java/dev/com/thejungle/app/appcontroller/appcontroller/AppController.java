@@ -1,6 +1,7 @@
 package dev.com.thejungle.app.appcontroller.appcontroller;
 
 import dev.com.thejungle.app.appcontroller.controllers.ChatController;
+import dev.com.thejungle.app.appcontroller.controllers.CommentController;
 import dev.com.thejungle.app.appcontroller.controllers.PostController;
 import dev.com.thejungle.app.appcontroller.controllers.PostPictureController;
 import dev.com.thejungle.app.appcontroller.controllers.UserController;
@@ -11,13 +12,15 @@ public class AppController {
     private UserController userController;
     private PostController postController;
     private PostPictureController postPictureController;
+    private CommentController commentController;
     private Javalin app;
 
-    public AppController(Javalin app, ChatController chatController, UserController userController, PostController postController, PostPictureController postPictureController) {
+    public AppController(Javalin app, ChatController chatController, UserController userController, PostController postController, PostPictureController postPictureController, CommentController commentController) {
         this.chatController = chatController;
         this.userController = userController;
         this.postController = postController;
         this.postPictureController = postPictureController;
+        this.commentController = commentController;
         this.app = app;
     }
 
@@ -42,6 +45,13 @@ public class AppController {
 
     public void createPostPicRoutes(){
         app.post("/post/image/{postId}", postPictureController.createNewPost);
+    }
+
+    public void createCommentRoutes(){
+        app.post("/post", commentController.createNewComment);
+        app.delete("/post/{commentId}", commentController.deleteComment);
+        app.get("/post/{postId}", commentController.getCommentByPost);
+        app.get("/post/{userId}", commentController.getCommentByUser);
     }
 }
 
