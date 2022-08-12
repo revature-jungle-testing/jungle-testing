@@ -13,8 +13,6 @@ import dev.com.thejungle.dao.implementations.UserDAO;
 import dev.com.thejungle.dao.interfaces.UserDAOInt;
 import dev.com.thejungle.entity.User;
 
-import dev.com.thejungle.customexception.InvalidInputException;
-
 
 public class UserTest {
 

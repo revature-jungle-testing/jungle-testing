@@ -13,7 +13,6 @@ public interface PostPictureServiceInt {
     PostPicture createPictureService(PostPicture createPicture);
 
     // get method
-
     List<PostPicture> getAllPicturesService();
     
 }
