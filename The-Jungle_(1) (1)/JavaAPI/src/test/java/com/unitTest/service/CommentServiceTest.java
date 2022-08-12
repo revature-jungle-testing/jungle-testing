@@ -1,5 +1,7 @@
 package com.unitTest.service;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -45,6 +47,20 @@ public class CommentServiceTest {
         } catch(TooManyCharacters e) {
             Assert.assertEquals("Your comment is too long!", e.getMessage());
         }
+    }
+
+    // test to get all comments by post
+    @Test
+    public void serviceGetCommentsByPost(){
+        List<Comment> result = commentService.getCommentsByPost(168);
+        Assert.assertNotNull(result);
+    }
+
+    // test to get all comments by user
+    @Test
+    public void serviceGetAllCommentsUser(){
+        List<Comment> result = commentService.getCommentsByUser(764);
+        Assert.assertNotNull(result);
     }
     
 }

@@ -1,5 +1,7 @@
 package dev.com.thejungle.service.implementations;
 
+import java.util.List;
+
 import dev.com.thejungle.customexception.TooManyCharacters;
 import dev.com.thejungle.dao.implementations.CommentDAO;
 import dev.com.thejungle.entity.Comment;
@@ -31,6 +33,16 @@ public class CommentService implements CommentServiceInt {
         } else {
             throw new TooManyCharacters("Your comment is too long!");
         }
+    }
+
+    @Override
+    public List<Comment> getCommentsByPost(int post_id) {
+        return this.commentDAO.getAllCommentsByPost(post_id);
+    }
+
+    @Override
+    public List<Comment> getCommentsByUser(int user_id) {
+        return this.commentDAO.getAllCommentsByUser(user_id);
     }
     
 }
