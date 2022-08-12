@@ -2,6 +2,7 @@ package dev.com.thejungle.app.appcontroller.appcontroller;
 
 import dev.com.thejungle.app.appcontroller.controllers.ChatController;
 import dev.com.thejungle.app.appcontroller.controllers.PostController;
+import dev.com.thejungle.app.appcontroller.controllers.PostPictureController;
 import dev.com.thejungle.app.appcontroller.controllers.UserController;
 import io.javalin.Javalin;
 
@@ -9,12 +10,14 @@ public class AppController {
     private ChatController chatController;
     private UserController userController;
     private PostController postController;
+    private PostPictureController postPictureController;
     private Javalin app;
 
-    public AppController(Javalin app, ChatController chatController, UserController userController, PostController postController) {
+    public AppController(Javalin app, ChatController chatController, UserController userController, PostController postController, PostPictureController postPictureController) {
         this.chatController = chatController;
         this.userController = userController;
         this.postController = postController;
+        this.postPictureController = postPictureController;
         this.app = app;
     }
 
@@ -33,8 +36,12 @@ public class AppController {
     }
 
     public void createPostRoutes() {
-        app.get("/posts", postController.getAllPosts);
-        app.get("/post/create", postController.createNewPost);
+        app.get("/user/post/{userId}", postController.getAllPosts);
+        app.post("/post", postController.createNewPost);
+    }
+
+    public void createPostPicRoutes(){
+        app.post("/post/image/{postId}", postPictureController.createNewPost);
     }
 }
 

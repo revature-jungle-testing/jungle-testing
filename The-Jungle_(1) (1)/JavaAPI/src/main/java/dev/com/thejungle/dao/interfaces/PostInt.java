@@ -11,5 +11,5 @@ public interface PostInt {
     Post createPost(Post createPost); 
 
     // Get/Read Method
-    List<Post> getAllPosts();
+    List<Post> getAllPosts(int UserId);
 }

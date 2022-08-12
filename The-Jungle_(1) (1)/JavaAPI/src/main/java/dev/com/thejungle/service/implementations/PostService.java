@@ -20,7 +20,7 @@ public class PostService implements PostServiceInt {
     
         @Override
         public boolean checkTextLength(Post textToCheck) {
-            if(textToCheck.getPostText().length() > 300){
+            if(textToCheck.getPostText().length() > 255){
                 return false;
             } else {
                 return true;
@@ -43,8 +43,8 @@ public class PostService implements PostServiceInt {
     // gets all the posts
 
         @Override
-        public List<Post> getAllPostsService() {
-            return this.postDAO.getAllPosts();
+        public List<Post> getAllPostsService(int UserId) {
+            return this.postDAO.getAllPosts(UserId);
         }
 
     

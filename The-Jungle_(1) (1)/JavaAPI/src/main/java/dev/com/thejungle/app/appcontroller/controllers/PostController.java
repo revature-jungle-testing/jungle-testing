@@ -21,24 +21,20 @@ public class PostController {
     
     // Get All Posts
     public Handler getAllPosts = ctx -> {
+        int userId = Integer.parseInt(ctx.pathParam("userId"));
         Gson gson = new Gson();
-        try {
-            List<Post> posts = this.postService.getAllPostsService();
-            if (posts == null) {
+        List<Post> post = this.postService.getAllPostsService(userId);
+            if (post == null) {
                 HashMap<String, String> message = new HashMap<>();
                 message.put("errorMessage", "Error processing request");
                 ctx.result(gson.toJson(message));
                 ctx.status(400);
+            } else {
+                String postJSON = gson.toJson(post);
+                ctx.result(postJSON);
+                ctx.status(200);
             }
-            String usersJSONs = gson.toJson(posts);
-            ctx.result(usersJSONs);
-            ctx.status(200);
-        } catch (PostNotFound e) {
-            HashMap<String, String> message = new HashMap<>();
-            message.put("errorMessage", e.getMessage());
-            ctx.result(gson.toJson(message));
-            ctx.status(400);
-        }
+   
     };
 
     // Create New Post
@@ -63,4 +59,6 @@ public class PostController {
             ctx.status(400);
         }
     };
+
+    
 }

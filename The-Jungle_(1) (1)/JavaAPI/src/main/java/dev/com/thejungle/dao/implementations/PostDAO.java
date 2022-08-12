@@ -21,9 +21,9 @@ public class PostDAO implements PostInt {
 // Get Post
 
     @Override
-    public List<Post> getAllPosts() {
+    public List<Post> getAllPosts(int UserId) {
         HibernateUtil.beginTransaction();
-        List<Post> requestList = HibernateUtil.getSession().createQuery("from Post", Post.class).getResultList();
+        List<Post> requestList = HibernateUtil.getSession().createQuery("from Post where userId = :UserID", Post.class).setParameter("UserID", UserId).getResultList();
         HibernateUtil.endTransaction();
         return requestList;
         

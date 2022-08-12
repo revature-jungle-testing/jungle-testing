@@ -15,23 +15,15 @@ public class PostPictureService implements PostPictureServiceInt{
     }
     
 
-    // checking maximum pic size is 500 kb = 500,000 bytes
 
-        @Override
-        public boolean checkImgSize(PostPicture imageToCheck) {
-            if(imageToCheck.getPicture().length() > 500000){
-                return false;
-            } else {
-                return true;
-            }
-        }
 
+       
     // creating picture after checking image size
 
         @Override
         public PostPicture createPictureService(PostPicture createPicture) {
             // TODO Auto-generated method stub
-            return null;
+            return postPictureDAO.createPicture(createPicture);
         }
 
     // getting all posted pictures
@@ -40,6 +32,13 @@ public class PostPictureService implements PostPictureServiceInt{
         public List<PostPicture> getAllPicturesService() {
             // TODO Auto-generated method stub
             return null;
+        }
+
+
+        @Override
+        public boolean checkImgSize(PostPicture imageToCheck) {
+            // TODO Auto-generated method stub
+            return false;
         }
     
 }
