@@ -3,11 +3,14 @@ package dev.com.thejungle.app.app;
 import dev.com.thejungle.app.appcontroller.appcontroller.AppController;
 import dev.com.thejungle.app.appcontroller.controllers.ChatController;
 import dev.com.thejungle.app.appcontroller.controllers.PostController;
+import dev.com.thejungle.app.appcontroller.controllers.PostPictureController;
 import dev.com.thejungle.app.appcontroller.controllers.UserController;
 import dev.com.thejungle.dao.implementations.ChatDAO;
 import dev.com.thejungle.dao.implementations.PostDAO;
+import dev.com.thejungle.dao.implementations.PostPictureDAO;
 import dev.com.thejungle.dao.implementations.UserDAO;
 import dev.com.thejungle.service.implementations.ChatService;
+import dev.com.thejungle.service.implementations.PostPictureService;
 import dev.com.thejungle.service.implementations.PostService;
 import dev.com.thejungle.service.implementations.UserService;
 import io.javalin.Javalin;
@@ -19,6 +22,8 @@ public class App {
             config.enableCorsForAllOrigins();
             config.enableDevLogging();
         });
+
+        
 
         PostDAO postDAO = new PostDAO();
         PostService postService = new PostService(postDAO);
@@ -34,12 +39,17 @@ public class App {
         UserService userService = new UserService(userDAO);
         UserController userController = new UserController(userService);
 
+        PostPictureDAO postPictureDAO = new PostPictureDAO();
+        PostPictureService postPictureService = new PostPictureService(postPictureDAO);
+        PostPictureController postPictureController = new PostPictureController(postPictureService);
+
         // App Controller
-        AppController appController = new AppController(app, chatController, userController, postController);
+        AppController appController = new AppController(app, chatController, userController, postController, postPictureController);
 
         appController.createChatRoutes();
         appController.createUserRoutes();
         appController.createPostRoutes();
+        appController.createPostPicRoutes();
 
         app.start();
     }

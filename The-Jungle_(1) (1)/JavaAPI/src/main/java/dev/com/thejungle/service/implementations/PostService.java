@@ -20,7 +20,7 @@ public class PostService implements PostServiceInt {
     
         @Override
         public boolean checkTextLength(Post textToCheck) {
-            if(textToCheck.getPostText().length() > 300){
+            if(textToCheck.getPostText().length() > 255){
                 return false;
             } else {
                 return true;

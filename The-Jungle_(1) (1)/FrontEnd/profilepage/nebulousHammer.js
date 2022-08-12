@@ -1,4 +1,6 @@
-let userId = 10000; // temporary 
+
+ let cookie = JSON.parse(localStorage.getItem('userInfo'));
+let userId = cookie.userId; // temporary 
 let postId = 273; // temporary
 
 // this is just a proof of concept and does not contain styling elements of the finished code
@@ -27,13 +29,14 @@ async function getPostImage(){// the postId and imageFormat will probably have t
 async function createPost(){
     let postText = document.getElementById("postText");
     console.log(postText.value)
-    let postJson = JSON.stringify({"user_id":userId, "post_text": postText.value, "image_format": "false"});
+    let postJson = JSON.stringify({"userId":userId, "postText": postText.value, "imageFormat": "false"});
     let url = "http://127.0.0.1:8080/post"
     let thePost = await fetch(url, {
         method:"POST",
         headers:{'Content-Type': 'application/json'}, 
         body:postJson}).then(response => {return response.json()});
     console.log(thePost);
+    getPost()
 }
 
 
@@ -46,12 +49,13 @@ async function createPostWithImage() {
   
     reader.addEventListener("load", async function () {
       base64gif = reader.result;
-      console.log(base64gif.slice(11, 14));
+      base64gif.slice(14)
+      console.log(base64gif.slice(23))
 
 
-      if (base64gif.length < 1_000_000 && base64gif.startsWith("data:image/")){
+      if (base64gif.length < 1_000_000){
         let postText = document.getElementById("postText");
-        let postJson = JSON.stringify({"user_id":userId, "post_text": postText.value, "image_format": "true"});
+        let postJson = JSON.stringify({"userId":userId, "postText": postText.value, "imageFormat": "true"});
         let url = "http://127.0.0.1:8080/post"
         
         //Inserts the post into the post table
@@ -61,12 +65,13 @@ async function createPostWithImage() {
             body:postJson}).then(response => {return response.json()});
 
         //Inserts the image into the post_image_table
-        console.log(thePost["post_id"]);
+        console.log(thePost["postId"]);
+        let picPost = JSON.stringify({"picture":base64gif.slice(23)}, );
         let response = await fetch(
-            "http://127.0.0.1:8080/post/image/" + thePost["post_id"], {
+            "http://127.0.0.1:8080/post/image/" + thePost["postId"], {
               method: "POST",
               headers: {"Content-Type": "application/json"},
-              body: String(base64gif)
+              body:base64gif.slice(23)
           });
           const imageText = await response.text();
           console.log(imageText)
@@ -102,29 +107,34 @@ async function createPostWithImage() {
   }
   
    function populateData(responseBody) {
+
     const allpost = document.getElementById("post column");
+    allpost.innerHTML = "";
     for (let post of responseBody) {
       let postBox = document.createElement('div');
       postBox.innerHTML = 
       `<div class = "post`+ post.post_id +`" id = "post`+ post.post_id + `" style=">
       <div class="flex-row">
-        <div class="overlap-group2">
+        <div class="list-group-item">
           <div class="username-1 valign-text-middle poppins-bold-cape-cod-20px">Username</div>
+          <div class="overlap-group-1">
+        <div class="feed-text-2 valign-text-middle poppins-medium-black-18px ">`+ post.postText + `</div>
         </div>
-        <input type="image" class="three-dots-icon-1" src="img/bi-three-dots@2x.svg" id="deletePost${post.post_id}" onclick="deletePost(${post.post_id})"/>
+        
       </div>
-      <div class="overlap-group-1">
-        <div class="feed-text-2 valign-text-middle poppins-medium-black-18px">`+ post.postText + `</div>
+      
       </div>
-      <div class="icon-container">
-      <input type="image" class="heart-icon" src="img/heart-icon@2x.svg" />
-        <p>` + post.likes + `</p>
-        <input type="image" class="chat-bubble-icon" src="img/chat-bubble-icon@2x.svg"/>
-        <img class="share-icon" src="img/share-icon@2x.svg" />
-    </div>
+      </div>
+      </div>
     
         
       </div>`
+      // <div class="icon-container">
+      // <input type="image" class="heart-icon" src="img/heart-icon@2x.svg" />
+      //   <p>` + post.likes + `</p>
+      //   <input type="image" class="chat-bubble-icon" src="img/chat-bubble-icon@2x.svg"/>
+      //   <img class="share-icon" src="img/share-icon@2x.svg" />
+    
       /*
       <div class="icon-container">
         <input type="image" class="heart-icon" src="img/heart-icon@2x.svg" />
@@ -223,4 +233,5 @@ async function createPostWithImage() {
     if (deleteResponse.status === 200) {
       document.getElementById("post" + post_id).remove();
     }
+
   }

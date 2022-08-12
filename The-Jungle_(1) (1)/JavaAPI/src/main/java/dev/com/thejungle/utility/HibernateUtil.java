@@ -1,9 +1,15 @@
 package dev.com.thejungle.utility;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+
+import dev.com.thejungle.entity.PostPicture;
 
 public class HibernateUtil {
 
@@ -11,7 +17,6 @@ public class HibernateUtil {
     private static Session session;
     private static Transaction transaction;
     private static SessionFactory sessionFactory;
-
     public static SessionFactory getSessionFactory(){
         
         if(sessionFactory == null){
@@ -43,6 +48,15 @@ public class HibernateUtil {
 
     public static Session getSession() {
         return session;
+    }
+
+    public static void saveTransaction(Object object) {
+        session.save(object);
+    }
+
+    public static void persistandcomiit(Object object){
+        session.persist(object);
+        session.getTransaction().commit();
     }
     
 
