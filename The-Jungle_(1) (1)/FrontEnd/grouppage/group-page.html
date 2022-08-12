@@ -189,8 +189,14 @@
   <script src="../grouppage/allgroups.js"></script>
   <script src="../grouppage/usergroups.js"></script>
   <script>
-    function clickLogout(){
-      window.location.href = "../loginpage/login.html";
+  function clickLogout(){
+      let result = confirm("Are you sure you want to leave the jungle?")
+            if(result === true){
+                window.location.href = "../loginpage/login.html";
+                return true;
+            } else {
+                return false;
+            }
     }
   </script>
 </html>

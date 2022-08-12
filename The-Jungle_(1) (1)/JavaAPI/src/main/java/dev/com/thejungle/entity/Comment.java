@@ -17,8 +17,6 @@ public class Comment {
     private int comment_id;
     private int post_id;
     private int user_id;
-    private int group_id;
-    private int reply_user;
     private String comment_text;
     
 
@@ -27,22 +25,17 @@ public class Comment {
     public Comment() {}
 
 
-    // Partial
-    public Comment(int post_id, int user_id, int group_id, int reply_user, String comment_text) {
+    public Comment(int post_id, int user_id, String comment_text) {
         this.post_id = post_id;
         this.user_id = user_id;
-        this.group_id = group_id;
-        this.reply_user = reply_user;
         this.comment_text = comment_text;
     }
 
     // Full Constructor
-    public Comment(int comment_id, int post_id, int user_id, int group_id, int reply_user, String comment_text) {
+    public Comment(int comment_id, int post_id, int user_id, String comment_text) {
         this.comment_id = comment_id;
         this.post_id = post_id;
         this.user_id = user_id;
-        this.group_id = group_id;
-        this.reply_user = reply_user;
         this.comment_text = comment_text;
     }
 
@@ -79,26 +72,6 @@ public class Comment {
     }
 
 
-    public int getGroup_id() {
-        return group_id;
-    }
-
-
-    public void setGroup_id(int group_id) {
-        this.group_id = group_id;
-    }
-
-
-    public int getReply_user() {
-        return reply_user;
-    }
-
-
-    public void setReply_user(int reply_user) {
-        this.reply_user = reply_user;
-    }
-
-
     public String getComment_text() {
         return comment_text;
     }
@@ -114,8 +87,7 @@ public class Comment {
     
     @Override
     public String toString() {
-        return "Comment [comment_id=" + comment_id + ", comment_text=" + comment_text + ", group_id=" + group_id
-                + ", post_id=" + post_id + ", reply_user=" + reply_user + ", user_id=" + user_id + "]";
+        return "Comment [comment_id=" + comment_id + ", comment_text=" + comment_text + ", post_id=" + post_id + ", user_id=" + user_id + "]";
     }
 
     

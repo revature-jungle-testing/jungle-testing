@@ -18,11 +18,27 @@ public class CommentDAO implements CommentInt{
     }
 
     @Override
-    public List<Comment> getAllComments() {
+    public boolean removeComment(Comment commentToBeDeleted) {
         HibernateUtil.beginTransaction();
-        List<Comment> requestList = HibernateUtil.getSession().createQuery("from Comment", Comment.class).getResultList();
+        HibernateUtil.getSession().delete(commentToBeDeleted);
         HibernateUtil.endTransaction();
-        return requestList;
+        return true;
+    }
+
+    @Override
+    public List<Comment> getAllCommentsByPost(int post_id) {
+        HibernateUtil.beginTransaction();
+        List<Comment> commentListPost = HibernateUtil.getSession().createQuery("from Comment where post_id = :PostID", Comment.class).setParameter("PostID", post_id).getResultList();
+        HibernateUtil.endTransaction();
+        return commentListPost;
+    }
+
+    @Override
+    public List<Comment> getAllCommentsByUser(int user_id) {
+        HibernateUtil.beginTransaction();
+        List<Comment> commentListUser = HibernateUtil.getSession().createQuery("from Comment where user_id = :UserID", Comment.class).setParameter("UserID", user_id).getResultList();
+        HibernateUtil.endTransaction();
+        return commentListUser;
     }
     
 }

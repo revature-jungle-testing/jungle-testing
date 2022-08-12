@@ -161,7 +161,7 @@
             <!-- Profile Image Uploader -->
             <div class="image-upload">
               <label for="userImageFileInput">
-                <img src="img/user-avatar@2x.png" class="user-avatar" id="userImageFile" type="button"/>
+                <img src="img/default-profile-pic.jpg" class="user-avatar" id="userImageFile" type="button"/>
               </label>
             
               <input type="file" id="userImageFileInput" onchange="createUserWithImage()"/>
@@ -257,7 +257,13 @@
   <script>
 
     function clickLogout(){
-      window.location.href = "../loginpage/login.html";
+      let result = confirm("Are you sure you want to leave the jungle?")
+            if(result === true){
+                window.location.href = "../loginpage/login.html";
+                return true;
+            } else {
+                return false;
+            }
     }
   </script>
 </html>

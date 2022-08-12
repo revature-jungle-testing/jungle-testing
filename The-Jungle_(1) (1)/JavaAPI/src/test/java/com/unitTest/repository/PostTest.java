@@ -29,7 +29,7 @@ public class PostTest {
     // get all posts
     @Test
     public void getAllPosts(){
-        List<Post> result = postDAO.getAllPosts();
+        List<Post> result = postDAO.getAllPosts(1337);
         Assert.assertNotNull(result);
     }
 }
