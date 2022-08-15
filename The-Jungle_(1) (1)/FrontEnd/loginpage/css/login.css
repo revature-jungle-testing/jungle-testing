@@ -23,9 +23,9 @@
 .login .logo {
   position: absolute;
   top: 1rem;
-  left: 2rem;
-  width: 10rem;
-  height: 3.5rem;
+  left: 3rem;
+  width: 15rem;
+  height: 6rem;
 }
 
 .login .overlap-group3 {
@@ -45,7 +45,7 @@
 }
 
 .login .title {
-  color: #20316ee8;
+  color: #089c39e8;
   font-family: var(--font-family-now-bold);
   font-size: var(--font-size-xxxl);
   font-weight: 700;
@@ -67,7 +67,7 @@
 }
 
 .login .welcome-back {
-  color: #434343;
+  color: #035a07b7;
   font-family: var(--font-family-poppins);
   font-size: var(--font-size-xxl);
   font-weight: 700;
@@ -119,19 +119,19 @@
   min-height: 29px;
   text-align: center;
   width: 140px;
-  color: #434343;
+  color: #1b1b1dbe;
   letter-spacing: -0.05px;
   margin-left: 6px;
 }
 
 .login .span0 {
-  color: #434343;
+  color: #d00ed6;
   letter-spacing: -0.05px;
 }
 
 .login {
   /* color: #f70e0e; */
-  color: #434343;
+  color: #3fdf0e;
   letter-spacing: -0.05px;
 }
 
@@ -177,7 +177,7 @@
 }
 
 .login .john123 {
-  color: #c0bfbf;
+  color: #50b60c;
   font-family: var(--font-family-poppins);
   font-size: var(--font-size-m);
   font-weight: 700;
@@ -199,7 +199,7 @@
 }
 
 .login .password-1 {
-  color: #434343;
+  color: #54ee0d;
   font-family: var(--font-family-poppins);
   font-size: var(--font-size-m);
   font-weight: 700;
@@ -232,12 +232,12 @@
 }
 
 .login .invalidLabel {
-  color: #c92432;
+  color: #24c948;
 }
 
 .login .invalid {
-  border-color: #c92432;
-  color: #c92432;
+  border-color: #1bb9b9;
+  color: #350988;
   background-color: #fffafa;
 }
 
@@ -279,12 +279,12 @@
 }
 
 .login .span0-1 {
-  color: #b1b1b1;
+  color: #c91b0ffa;
   letter-spacing: -0.05px;
 }
 
 .login .span1-1 {
-  color: #0164fa;
+  color: #c91b0ffd;
   letter-spacing: -0.05px;
   text-decoration: underline;
 }
@@ -296,7 +296,7 @@
 }
 
 .login .submitButton {
-  background-color: #f4996a;
+  background-color: #19910e;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -324,7 +324,7 @@
 
 /* Right Section */
 .login .rightSection {
-  background-image: url(../img/waveShape.png);
+  background-image: url(../img/waveShape1.png);
   width: 45vw;
   height: 100vh;
   background-size: 100% 100%;
@@ -334,17 +334,17 @@
   height: 63vh;
   right: 6rem;
   object-fit: cover;
-  position: absolute;
+  position: flex;
   top: 163px;
   width: 40vw;
 }
 
 #signup-invalid-message {
-  color: #ad010c;
+  color: #0cd61d;
 }
 
 #submitLogin {
-  background-color: #f4996a;
+  background-color: darkgreen;
   color: white;
   font-weight: bold;
 }
