@@ -2,10 +2,19 @@ package dev.com.thejungle.app.app;
 
 import dev.com.thejungle.app.appcontroller.appcontroller.AppController;
 import dev.com.thejungle.app.appcontroller.controllers.ChatController;
+import dev.com.thejungle.app.appcontroller.controllers.CommentController;
+import dev.com.thejungle.app.appcontroller.controllers.PostController;
+import dev.com.thejungle.app.appcontroller.controllers.PostPictureController;
 import dev.com.thejungle.app.appcontroller.controllers.UserController;
 import dev.com.thejungle.dao.implementations.ChatDAO;
+import dev.com.thejungle.dao.implementations.CommentDAO;
+import dev.com.thejungle.dao.implementations.PostDAO;
+import dev.com.thejungle.dao.implementations.PostPictureDAO;
 import dev.com.thejungle.dao.implementations.UserDAO;
 import dev.com.thejungle.service.implementations.ChatService;
+import dev.com.thejungle.service.implementations.CommentService;
+import dev.com.thejungle.service.implementations.PostPictureService;
+import dev.com.thejungle.service.implementations.PostService;
 import dev.com.thejungle.service.implementations.UserService;
 import io.javalin.Javalin;
 
@@ -17,6 +26,12 @@ public class App {
             config.enableDevLogging();
         });
 
+        
+
+        PostDAO postDAO = new PostDAO();
+        PostService postService = new PostService(postDAO);
+        PostController postController = new PostController(postService);
+
         // Chat Controller
         ChatDAO chatDAO = new ChatDAO();
         ChatService chatService = new ChatService(chatDAO);
@@ -27,11 +42,22 @@ public class App {
         UserService userService = new UserService(userDAO);
         UserController userController = new UserController(userService);
 
+        PostPictureDAO postPictureDAO = new PostPictureDAO();
+        PostPictureService postPictureService = new PostPictureService(postPictureDAO);
+        PostPictureController postPictureController = new PostPictureController(postPictureService);
+
+        CommentDAO commentDAO = new CommentDAO();
+        CommentService commentService = new CommentService(commentDAO);
+        CommentController commentController = new CommentController(commentService);
+
         // App Controller
-        AppController appController = new AppController(app, chatController, userController);
+        AppController appController = new AppController(app, chatController, userController, postController, postPictureController, commentController);
 
         appController.createChatRoutes();
         appController.createUserRoutes();
+        appController.createPostRoutes();
+        appController.createPostPicRoutes();
+        appController.createCommentRoutes();
 
         app.start();
     }

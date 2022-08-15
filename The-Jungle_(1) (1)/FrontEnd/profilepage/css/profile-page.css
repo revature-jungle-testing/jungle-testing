@@ -94,6 +94,7 @@
 
 .profile-page .overlap-group1 {
   align-items: center;
+  
   /* background-color: var(--white); */
   border-radius: 20px;
   display: flex;
@@ -149,12 +150,10 @@
 
 .profile-page .username-1 {
   height: 24px;
-  left: 53px;
   letter-spacing: -0.30px;
-  position: absolute;
   text-align: center;
   top: 9px;
-  width: 153px;
+  width: 90px;
 }
 
 .profile-page .feed-avatar-1 {
@@ -230,12 +229,10 @@
 
 .profile-page .feed-text-2 {
   height: 36px;
-  left: 59px;
   letter-spacing: -0.27px;
-  position: absolute;
   text-align: center;
   top: 0;
-  width: 354px;
+  width: auto;
 }
 
 .profile-page .username-2-1 {
@@ -418,11 +415,12 @@
 }
 
 .profile-page .user-avatar {
-  height: 151px;
+  height: 150px;
   margin-right: 6px;
   object-fit: cover;
-  width: 151px;
+  width: 150px;
   border-radius: 80px;
+  margin-bottom: 10px;
 }
 
 .profile-page .user-name {
