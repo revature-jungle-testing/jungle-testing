@@ -63,7 +63,7 @@ public class CommentController {
 
     // get comment by post_id
     public Handler getCommentByPost = ctx -> {
-        int postId = Integer.parseInt(ctx.pathParam("post_id"));
+        int postId = Integer.parseInt(ctx.pathParam("postId"));
         Gson gson = new Gson();
         List<Comment> comment = this.commentService.getCommentsByPost(postId);
             if(comment == null){
