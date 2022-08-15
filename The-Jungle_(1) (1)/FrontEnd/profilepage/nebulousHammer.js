@@ -109,6 +109,25 @@ async function createPostWithImage() {
     }
     
   }
+
+
+  async function test(commentPost){
+
+    console.log(commentPost)
+    let postText = document.getElementById("commentText" + commentPost).value;
+
+    console.log(postText.value)
+    let postJson = JSON.stringify({"post_id":commentPost,"user_id":userId, "comment_text": postText});
+    let url = "http://127.0.0.1:8080/create/comment"
+    let thePost = await fetch(url, {
+        method:"POST",
+        headers:{'Content-Type': 'application/json'}, 
+        body:postJson}).then(response => {return response.json()});
+        if(thePost.comment_text){
+          alert("Comment Created")
+        }
+    console.log(thePost);
+}
   
    async function populateData(responseBody) {
 
@@ -157,6 +176,9 @@ async function createPostWithImage() {
             <div class="feed-text-2 valign-text-middle poppins-medium-black-18px">`+ post.postText + `</div>
           </div>
         </div>
+        <div onclick=""> Load Image </div>
+        <input type="text" id="commentText`+ post.postId + `" placeholder="Comment">
+        <input type="button" value="Comment" onclick="test(`+ post.postId + `)">
       </div>`
       }else{
         postBox.innerHTML = 
@@ -173,6 +195,9 @@ async function createPostWithImage() {
         </div>
         </div>
         </div>
+        <div onclick=""> Load Image </div>
+        <input type="text" id="commentText`+ post.postId + `" placeholder="Comment">
+        <input type="button" value="Comment" onclick="test(`+ post.postId + `)">
         </div>`
       }
       allpost.appendChild(postBox);
