@@ -67,7 +67,7 @@
 }
 
 .login .welcome-back {
-  color: #035a07b7;
+  color: #04770ab7;
   font-family: var(--font-family-poppins);
   font-size: var(--font-size-xxl);
   font-weight: 700;
@@ -80,7 +80,7 @@
 
 .login .welcome-back-please {
   align-self: flex-end;
-  color: #b1b1b1;
+  color: #7e7b7b;
   font-family: var(--font-family-poppins);
   font-size: var(--font-size-m);
   font-weight: 500;
@@ -131,7 +131,7 @@
 
 .login {
   /* color: #f70e0e; */
-  color: #3fdf0e;
+  color: #228105;
   letter-spacing: -0.05px;
 }
 
@@ -177,7 +177,7 @@
 }
 
 .login .john123 {
-  color: #50b60c;
+  color: #388305;
   font-family: var(--font-family-poppins);
   font-size: var(--font-size-m);
   font-weight: 700;
@@ -296,7 +296,7 @@
 }
 
 .login .submitButton {
-  background-color: #19910e;
+  background-color: #07940eb7;
   display: flex;
   align-items: center;
   justify-content: center;
