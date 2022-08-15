@@ -49,10 +49,12 @@ public class AppController {
     }
 
     public void createCommentRoutes(){
+
         app.post("/create/comment", commentController.createNewComment);
         app.delete("/comment/post/{commentId}", commentController.deleteComment);
         app.get("/comment/post/{postId}", commentController.getCommentByPost);
         app.get("/comment/post/user/{userId}", commentController.getCommentByUser);
+
     }
 }
 
