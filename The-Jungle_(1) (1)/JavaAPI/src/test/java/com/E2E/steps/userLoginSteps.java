@@ -1,5 +1,7 @@
 package com.E2E.steps;
 
+import java.util.concurrent.TimeUnit;
+
 import org.junit.Assert;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -19,14 +21,16 @@ public class userLoginSteps {
     }
     @When("the user enters correct username")
     public void the_user_enters_correct_username() {
-        TestRunner.userLoginPom.usernameLoginInput("ApeEscape");
+        TestRunner.userLoginPom.usernameLoginInput("username");
     }
     @When("the user enters correct password")
     public void the_user_enters_correct_password() {
-        TestRunner.userLoginPom.passcodeLoginInput("banana");
+        TestRunner.userLoginPom.passcodeLoginInput("passcode");
     }
     @When("the user clicks on the log-in button correct")
     public void the_user_clicks_on_the_log_in_button_correct() {
+        TestRunner.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
         TestRunner.userLoginPom.submitLoginCorrect();
     }
     @Then("the user will be redirected to the homepage")

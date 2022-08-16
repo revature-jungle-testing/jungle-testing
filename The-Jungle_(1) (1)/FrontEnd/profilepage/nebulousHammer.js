@@ -1,6 +1,6 @@
 
  let cookie = JSON.parse(localStorage.getItem('userInfo'));
-let userId = cookie.userId; // temporary 
+let userId = 10000; // temporary 
 let postId = 273; // temporary
 
 // this is just a proof of concept and does not contain styling elements of the finished code
@@ -128,7 +128,7 @@ async function createPostWithImage() {
       
     }
     commentBox.innerHTML = commentBox.innerHTML + `<input type="text" id="commentText`+ postId + `" placeholder="Comment">
-    <input type="button" value="Comment" onclick="test(`+ postId + `)">`
+    <input type="button" value="Comment" onclick="test(`+ postId + `) class="button1">`
     
   }
 

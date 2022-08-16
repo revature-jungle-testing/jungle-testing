@@ -1,6 +1,8 @@
 package com.E2E.poms;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class postCreatePom {
@@ -12,23 +14,53 @@ public class postCreatePom {
         PageFactory.initElements(driver, this);
     }
     
-    // find by web element for create post button
+    @FindBy(id = "usernameInput")
+    public WebElement usernameInput;
 
-        // method to click on create post button
-            // click()
+    @FindBy(className = "rightSection")
+    public WebElement rightSection;
 
+    @FindBy(id = "passcodeInput")
+    public WebElement passcodeInput;
 
-    // find by web element for enter input post body
+    @FindBy(id = "submitLogin")
+    public WebElement submitLogin;
 
-        // method to enter a post
-            // send keys
+        // method to login
+        public void login (String username, String password){
+            this.usernameInput.sendKeys(username);
+            this.passcodeInput.sendKeys(password);
+            this.rightSection.click();
+            this.submitLogin.click();
+        }
 
-        // method to enter a post that is too long
-            // send keys
+    @FindBy(id = "updateProfileEditProfileBtn")
+    public WebElement createPostButton;
 
-    // find by web element for post button
+        public void clickCreatePost(){
+            this.createPostButton.click();
+        }
 
-        // method to click on post button
-            // click()
+    @FindBy(id = "postText")
+    public WebElement postText;
+
+        public void goodPost(String goodPostText){
+            this.postText.sendKeys(goodPostText);
+        }
+
+        public void badPost(String badPostText){
+            this.postText.sendKeys(badPostText);
+        }
+
+    @FindBy(xpath =  "//*[@id='createPostForm']/button")
+    public WebElement confirmPost;
+
+        public void confirmPost(){
+            this.confirmPost.click();
+        }
+
+    @FindBy(className = "overlap-group-1")
+    public WebElement newlyCreatedPost;
+
     
 }

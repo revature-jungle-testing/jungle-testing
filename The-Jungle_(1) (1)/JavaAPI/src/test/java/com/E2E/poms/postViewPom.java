@@ -1,6 +1,8 @@
 package com.E2E.poms;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class postViewPom {
@@ -11,8 +13,7 @@ public class postViewPom {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
-
-    // method to refresh page
-        // location.reload()? window.reload, something like that
         
+    @FindBy(className = "overlap-group1-1")
+    public By postFeed;
 }

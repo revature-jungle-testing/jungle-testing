@@ -197,8 +197,6 @@ async function registerUser(event) {
     localStorage.setItem("userIdSignup", JSON.stringify(userData));
     window.location.href = "../profilepage/profile-page.html";
   } else {
-    let error = registeredUserBody.errorMessage;
-    invalidIcon[6].style.display = "";
-    invalidMessage[6].textContent = error;
+    alert("Error Duplicate Username or Email");
   }
 };
