@@ -29,7 +29,7 @@ public class PostPictureTest {
 
     @Test
     public void getAllPictures() {
-        PostPicture result = postPicDao.getAllPictures(273);
+        PostPicture result = postPicDao.getAllPictures(247);
         Assert.assertNotNull(result);
     }
     
