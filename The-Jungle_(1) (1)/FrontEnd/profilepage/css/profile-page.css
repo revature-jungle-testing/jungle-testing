@@ -483,7 +483,7 @@
 
 .profile-page .edit-container {
   background-color: var(--white);
-  border: 2px solid #f47635;
+  border: 1000px solid #f47635;
   border-radius: 10px;
   height: 42px;
   margin-right: 10px;
@@ -492,7 +492,7 @@
 }
 
 .profile-page .edit-profile {
-  color: #f47736;
+  color: #18642a;
   font-family: var(--font-family-poppins);
   font-size: var(--font-size-m);
   font-weight: 500;
@@ -525,7 +525,7 @@
 }
 
 .profile-page .jungle3-1 {
-  height: 5.5rem;
+  height: 6.8rem;
   left: 0;
   object-fit: cover;
   position: absolute;
