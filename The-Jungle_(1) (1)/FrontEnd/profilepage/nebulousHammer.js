@@ -109,6 +109,47 @@ async function createPostWithImage() {
     }
     
   }
+
+  async function getComments(postId) {
+    console.log(postId)
+    let response = await fetch("http://127.0.0.1:8080/comment/post/" + postId, {
+      method: "GET",
+      mode: "cors",
+    });
+    const commentBox = document.getElementById("commentMaker"+postId);
+    commentBox.innerHTML = ""
+    if (response.status === 200) {
+      let body = await response.json();
+      console.log(body);
+      for(let comments of body){
+        
+        commentBox.innerHTML = commentBox.innerHTML + "<div class='commentBox'><p>" + comments.comment_text + "</p></div>";
+      }
+      
+    }
+    commentBox.innerHTML = commentBox.innerHTML + `<input type="text" id="commentText`+ postId + `" placeholder="Comment">
+    <input type="button" value="Comment" onclick="test(`+ postId + `)">`
+    
+  }
+
+
+  async function test(commentPost){
+
+    console.log(commentPost)
+    let postText = document.getElementById("commentText" + commentPost).value;
+
+    console.log(postText.value)
+    let postJson = JSON.stringify({"post_id":commentPost,"user_id":userId, "comment_text": postText});
+    let url = "http://127.0.0.1:8080/create/comment"
+    let thePost = await fetch(url, {
+        method:"POST",
+        headers:{'Content-Type': 'application/json'}, 
+        body:postJson}).then(response => {return response.json()});
+        if(thePost.comment_text){
+          alert("Comment Created")
+        }
+    console.log(thePost);
+}
   
    async function populateData(responseBody) {
 
@@ -157,6 +198,8 @@ async function createPostWithImage() {
             <div class="feed-text-2 valign-text-middle poppins-medium-black-18px">`+ post.postText + `</div>
           </div>
         </div>
+        <div id="commentMaker`+ post.postId + `"></div>
+        <input type="button" value="View Comments" onclick="getComments(`+ post.postId + `)">
       </div>`
       }else{
         postBox.innerHTML = 
@@ -173,6 +216,9 @@ async function createPostWithImage() {
         </div>
         </div>
         </div>
+        <div id="commentMaker`+ post.postId + `"></div>
+        <input type="button" value="View Comments" onclick="getComments(`+ post.postId + `)">
+        
         </div>`
       }
       allpost.appendChild(postBox);
